@@ -1,0 +1,10 @@
+{
+  "gate_pass": true,
+  "B": 1000,
+  "blocks": [
+    2,
+    3,
+    6
+  ],
+  "n_dates_geometry": 3756
+}
