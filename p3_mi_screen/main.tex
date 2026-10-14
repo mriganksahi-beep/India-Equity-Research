@@ -16,9 +16,10 @@ Sign Instability, Feature Overlap, and Conditional-MI Calibration}}
 I screen six price- and volume-based features against forward returns at five
 horizons in a snapshot-based point-in-time Nifty~500 universe, 2010--2021, using a
 rank-based mutual information (MI) estimator with a within-date permutation null.
-All 30 feature--horizon cells have permutation-corrected MI above zero at nominal
-95\% moving-block bootstrap intervals, and all 30 survive a Holm family-wise
-adjustment. Only 13 have a mean rank information coefficient (IC) that survives the
+The calendar is audited first, removing exchange-closed and thin-coverage dates.
+In 29 of 30 feature--horizon cells, permutation-corrected MI is above zero at nominal
+95\% moving-block bootstrap intervals, and the same 29 survive a Holm family-wise
+adjustment. Only 12 have a mean rank information coefficient (IC) that survives the
 same adjustment. Most of the gap is not hidden nonlinearity. Much of the measured
 information comes from monotone relationships that are strong in a given month but
 change sign across months; an averaged IC cancels these, and sign-blind MI does not.
@@ -35,7 +36,7 @@ feature sorts the cross-section of returns, not in which direction.
 {The screen is a characterization; no feature or horizon was selected from it. In the project's test ledger it is family MI-33 (30 cells), with CMI-34 (four conditional-MI pairs) and MI-35 (two analyses added in the 2026 re-run). These sit after the 32 entries of the original ledger. Nominal and Holm-adjusted results are both reported.}
 {No portfolios are formed and no returns are claimed; costs do not arise.}
 {Index membership is a snapshot-based approximation built from semi-annual snapshots (first snapshot mid-2010). The 2018-06-30 snapshot is truncated, so membership for Jul--Dec 2018 is approximate.}
-{The panel's date index contains some exchange-closed dates on which most stocks have no data. Months whose rebalance date or forward-window end fell on such a date were dropped (Section~\ref{sec:data}); a calendar-corrected re-run is planned.}
+{An audit removed 165 exchange-closed or thin-coverage dates from the panel's calendar before any computation (Section~\ref{sec:data}). Without it, 11 mid-sample months (24 for momentum) had been lost.}
 
 \section{Introduction}
 
@@ -50,7 +51,7 @@ I compute a permutation-corrected MI between the cross-sectional ranks of six fe
 (12-1 momentum, one-month reversal, 60-day realized volatility, 21-day log turnover,
 21-day overnight-return tilt, and lagged Amihud illiquidity) and forward returns at
 horizons from one week to one year. The answer has three parts. First, MI flags every
-feature as informative, but for half the cells the information has no stable
+feature as informative, but for more than half the cells the information has no stable
 direction: monthly rank ICs are often large in absolute value and change sign through
 time. MI averages the strength of the relationship; IC averages its signed value.
 Second, MI between features separates monotone overlap, which correlation already
@@ -76,29 +77,32 @@ Choices specific to this paper:
 \begin{itemize}
 \item Only stocks with membership flag equal to 1 on the rebalance date are used.
 Missing values are dropped, never filled.
-\item Trailing 21-day features are averaged over each stock's own trading rows. About
-31\% of (date, stock) cells in the wide panel are empty (closed dates, masked rows,
-pre-listing), and a calendar window would have left these features empty for most of
-the universe.
+\item \textbf{Calendar audit.} The date index contained dates on which few or no
+stocks have a price: holidays carried by the vendor, thin special sessions (Diwali
+\emph{muhurat}, the 2015-02-28 Budget-day Saturday) and a few low-coverage weekdays.
+Each date's count of stocks with a price is divided by the median count over the
+centred 21 surrounding dates; dates below 0.5 are removed before anything is computed.
+This removes 165 of 4,237 dates (158 in 2010--2021; 139 with no prices at all). In the
+development period every removed date has a ratio of at most 0.19 and every retained
+date at least 0.95. The flagged list is in the repository.
+\item Trailing 21-day features are averaged over each stock's own trading rows, so
+a stock's missing or masked rows do not empty its feature.
 \item Amihud illiquidity \citep{amihud2002} is computed monthly and attached with a
 one-month lag: a rebalance in month $M$ uses month $M-1$'s value.
 \end{itemize}
 
-Rebalance dates are the last date in each calendar month present in the panel index,
-2010-01 to 2021-12 (144 dates). A date is dropped for a cell if fewer than 30 eligible
-stocks remain or if its forward window would cross 2021-12-31. At the one-month
-horizon, cells lose the first five months of 2010 (before the first membership
-snapshot; momentum, which needs 252 rows of history, loses most of 2010), December
-2021 (hold-out guard), and eleven mid-sample months: 2011-08, 2014-03, 2014-06,
-2014-07, 2014-08, 2016-10, 2018-02, 2018-03, 2019-09, 2020-11 and 2021-02. Five of
-these (2011-08, 2014-08, 2016-10, 2018-03 and 2020-11) end on an exchange holiday;
-the panel's last date in those months appears to be the closed date, carrying data for
-only a few stocks, so the rebalance cross-section collapses. The cause of the other six has not been verified; a closed
-date at the end of the forward window would have the same effect. A closed date inside
-a window also lengthens a row-counted horizon by one trading day. Dropping these months
-removes about 8\% of dates and reduces precision; whether it shifts any estimate will
-be known after the calendar-corrected re-run. Each cell retains between 97 and 129
-dates with 464--490 stocks per date on average.
+Rebalance dates are the last audited trading date in each calendar month, 2010-01 to
+2021-12 (144 dates). A date is dropped for a cell if fewer than 30 eligible stocks
+remain or if its forward window would cross 2021-12-31. After the audit, no
+mid-sample month is lost. The only losses are the first five months of 2010 (before the
+first membership snapshot), all of 2010 for momentum (which needs 252 rows of
+history), and the final months whose forward window would cross the hold-out wall
+(December 2021 at one month; December 2020 onward at one year). Each cell retains
+between 119 and 138 dates with 483--497 stocks per date on average.
+
+Without the audit, a month was lost whenever its rebalance date, forward-window end
+or (for momentum) lookback endpoint fell on a closed date: 11 mid-sample months for most
+features and 24 for momentum, not at random (Section~\ref{sec:repro}).
 
 \section{Method}
 
@@ -171,42 +175,49 @@ volatility-only features for the classification rule.
 
 \section{Results}
 
-\subsection{Every feature is informative; about half have a stable direction}
+\subsection{Every feature is informative; fewer than half the cells have a stable direction}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig1_landscape.pdf}
 \caption{Left: permutation-corrected MI between feature rank and forward-return rank,
 by horizon. Right: mean monthly rank IC for the same cells. Bars are 95\% moving-block
-bootstrap intervals. All 30 MI intervals exclude zero (30 after Holm adjustment); 15 IC
-intervals do (13 after Holm adjustment). Development period 2010--2021.}
+bootstrap intervals. 29 of 30 MI intervals exclude zero (29 after Holm adjustment); 15
+IC intervals do (12 after Holm adjustment). Development period 2010--2021,
+calendar-audited.}
 \label{fig:landscape}
 \end{figure}
 
-Figure~\ref{fig:landscape} shows the landscape. All 30 $\miex$ intervals exclude zero,
-and all 30 cells remain significant at the 5\% family-wise level after Holm
-adjustment. Realized volatility (0.033--0.043 nats) and momentum (0.026--0.041) carry
-the most information, then reversal (0.012--0.022); Amihud, turnover and overnight
-tilt lie between 0.005 and 0.017. The weakest cell, overnight tilt at three months,
-is fragile: its lower bound is close to zero with 3- or 6-month blocks and falls just
-below zero with 12-month blocks. No other cell's conclusion depends on the block
-length.
+Figure~\ref{fig:landscape} shows the landscape. In 29 of 30 cells the $\miex$ interval
+excludes zero, and the same 29 remain significant at the 5\% family-wise level after
+Holm adjustment. Realized volatility (0.036--0.046 nats) and momentum (0.029--0.036)
+carry the most information, then reversal (0.013--0.022); Amihud, turnover and
+overnight tilt lie between 0.006 and 0.016. The exception is overnight tilt at three
+months ($\miex = 0.003$), whose interval includes zero with 3-, 6- and 12-month blocks
+alike. Its mean IC interval, $[-0.038,-0.005]$, excludes zero nominally. A weak
+monotone relationship that rank IC detects and the MI estimator does not is what the
+calibration in Section~\ref{sec:repro} would lead one to expect: the estimator
+understates weak dependence. No other cell's conclusion depends on the block length.
 
 The IC panel tells a different story. Momentum has a positive mean IC from one month
-onward (0.085 at one month, 95\% interval $[0.049, 0.122]$; 0.131 at six months) but
-none at one week.\footnote{The momentum IC reported by \citet{sahi_momentum}, 0.061,
-uses 2011--2026 and a different return harness. Restricting this paper's one-month
-series to 2011--2021 gives 0.084, so the different start date does not explain the
-gap; the inclusion of 2022--2026 and harness differences remain possible causes and
-have not been separated.} Volatility has a negative IC that strengthens with horizon
-($-0.066$ at one month, $-0.146$ at one year, $[-0.218,-0.072]$), consistent with the
-low-volatility pattern documented elsewhere \citep{ang2006}. Reversal is negative at
-one week ($-0.042$) and positive at six and twelve months. Turnover's and Amihud's IC
-intervals include zero at every horizon; overnight tilt's IC is positive at one week
-and negative from three months, and only the six- and twelve-month values survive
-Holm adjustment. In total, 15 IC intervals exclude zero nominally and 13 survive Holm
-adjustment. Under the descriptive classification, 13 cells are direction-led, 4
-extremeness-led, 13 mixed and none without signal. Volatility carries both kinds of
+onward (0.069 at one month, 95\% interval $[0.036, 0.101]$; 0.121 at six months) but
+none at one week.\footnote{\citet{sahi_momentum} reports a one-month momentum IC of
+0.061 for 2011--2026, with a different return harness and without the calendar audit.
+Before the audit this paper's estimate was 0.085; after it, 0.069 (all usable
+momentum dates here are from 2011 onward, so the start dates already match). The
+remaining difference has not been attributed between the 2022--2026 period, the
+harness and that paper's calendar.} Volatility has a negative IC that strengthens with
+horizon ($-0.062$ at one month, $-0.146$ at one year, $[-0.219,-0.070]$), consistent
+with the low-volatility pattern documented elsewhere \citep{ang2006}. Reversal is
+negative at one week ($-0.056$, $[-0.075,-0.036]$) and positive at six and twelve
+months. Turnover's and Amihud's IC intervals include zero at every horizon; overnight
+tilt's IC is positive at one week and negative from three months, and only the
+one-year value survives Holm adjustment. In total, 15 IC intervals exclude zero
+nominally and 12 survive Holm adjustment. Under the descriptive classification, 10
+cells are direction-led, 6 extremeness-led, 13 mixed and one without signal. These
+labels are fragile: 9 of the 30 changed between the runs before and after the calendar
+audit, either because a share sat near the one-half cut-off or because an extremeness
+interval moved across zero. They are a reading aid, not a result. Volatility carries both kinds of
 information: alongside its negative IC, its extremeness IC is 0.16--0.17 at every
 horizon. High-volatility stocks end further from the median, in either direction.
 
@@ -225,9 +236,9 @@ momentum's are mostly positive.}
 
 Why do so many cells carry information without a stable direction?
 Figure~\ref{fig:icseries} shows the pattern, and Table~\ref{tab:sign} quantifies it.
-At one month, turnover's IC lies above the reference band in 28\% of months and below
-it in 19\%, and the two cancel to a mean of $0.009$. Momentum is the contrast: 57\%
-above, 16\% below. Across all 30 cells, between 28\% and 78\% of months fall outside
+At one month, turnover's IC lies above the reference band in 29\% of months and below
+it in 22\%, and the two cancel to a mean of $0.008$. Momentum is the contrast: 50\%
+above, 18\% below. Across all 30 cells, between 27\% and 77\% of months fall outside
 the band, against 5\% expected if stocks were independent and there were no
 relationship. Some of this excess reflects cross-sectional correlation among stocks,
 which widens the true sampling distribution of a monthly IC. A likely economic reading
@@ -247,23 +258,25 @@ mean IC; and Gaussian-copula MI implied by the mean IC versus by each month's ow
 \cmidrule(lr){2-3}\cmidrule(lr){5-6}
 Feature & above & below & Mean IC & from mean IC & from monthly IC & $\miex$ \\
 \midrule
-Momentum 12-1      & 57\% & 16\% & $0.085$ & 0.0028 & 0.0242 & 0.0316 \\
-Reversal 1m        & 25\% & 25\% & $-0.009$ & $\approx0$ & 0.0121 & 0.0224 \\
-Realized vol 60d   & 19\% & 46\% & $-0.066$ & 0.0012 & 0.0201 & 0.0426 \\
-Log turnover 21d   & 28\% & 19\% & $0.009$ & $\approx0$ & 0.0067 & 0.0125 \\
-Overnight tilt 21d & 13\% & 21\% & $-0.013$ & $\approx0$ & 0.0034 & 0.0066 \\
-Amihud (lagged)    & 18\% & 28\% & $-0.014$ & $\approx0$ & 0.0067 & 0.0115 \\
+Momentum 12-1      & 50\% & 18\% & $0.069$ & 0.0015 & 0.0219 & 0.0302 \\
+Reversal 1m        & 25\% & 24\% & $-0.008$ & $\approx0$ & 0.0104 & 0.0201 \\
+Realized vol 60d   & 20\% & 43\% & $-0.062$ & 0.0010 & 0.0202 & 0.0406 \\
+Log turnover 21d   & 29\% & 22\% & $0.008$ & $\approx0$ & 0.0070 & 0.0087 \\
+Overnight tilt 21d & 12\% & 20\% & $-0.009$ & $\approx0$ & 0.0028 & 0.0056 \\
+Amihud (lagged)    & 20\% & 30\% & $-0.012$ & $\approx0$ & 0.0069 & 0.0118 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 The last three columns put this on the MI scale without using the MI estimator. The
-information implied by each month's own IC is about nine times what the mean IC
-implies for momentum, whose direction is the most stable, and 17 times for volatility;
+information implied by each month's own IC is about 14 times what the mean IC
+implies for momentum, whose direction is the most stable, and 20 times for volatility;
 for the other four features the mean IC implies essentially none. As an approximate
 accounting (Figure~\ref{fig:accounting}), month-by-month monotone direction
-corresponds to a median of 60\% of $\miex$ across the 30 cells (range 35--91\%), and
-adding monotone extremeness brings the median to 83\% (interquartile range 71--88\%).
+corresponds to a median of 57\% of $\miex$ across the 30 cells (range 33--104\%; the
+one value above 100\% is overnight tilt at three months, whose $\miex$ interval
+includes zero), and adding monotone extremeness brings the median to 82\%
+(interquartile range 69--91\%).
 These shares are not an exact decomposition: the components are approximate and not
 strictly additive. They may also overstate the monotone part if the MI estimator
 understates weak dependence (Section~\ref{sec:repro}). The sign-frequency evidence in
@@ -303,16 +316,16 @@ tilt, Ami = Amihud.}
 
 The same comparison between features (Figure~\ref{fig:redundancy}) separates two kinds
 of overlap. Turnover and Amihud illiquidity are almost perfectly rank-correlated
-($\rho = -0.950$); this is mechanical, since turnover is the denominator of Amihud's
-measure. Their MI (1.27 nats) is within 4\% of what that correlation implies, so rank
+($\rho = -0.951$); this is mechanical, since turnover is the denominator of Amihud's
+measure. Their MI (1.28 nats) is within 4\% of what that correlation implies, so rank
 correlation describes this overlap completely. (The original screen had blanked this
 cell automatically because it exceeded a sanity ceiling; a follow-up check found no
 tied values and confirmed the dependence was genuine.) By contrast, reversal and
-volatility are uncorrelated on average ($\rho = -0.006$, 95\% interval
-$[-0.050, 0.034]$) yet share 0.090 nats, 2.8 times the Gaussian-implied amount. A stock
+volatility are uncorrelated on average ($\rho = 0.013$, 95\% interval
+$[-0.031, 0.055]$) yet share 0.092 nats, 2.6 times the Gaussian-implied amount. A stock
 that moved sharply in either direction last month tends to be a high-volatility stock:
 a U-shaped relationship that correlation averages away. Momentum and volatility
-($\rho = -0.105$, MI 0.110, 2.0 times implied) show the same pattern: extreme winners
+($\rho = -0.110$, MI 0.109, 2.0 times implied) show the same pattern: extreme winners
 and extreme losers both tend to be volatile. I have not checked these shapes with
 binned conditional means, so ``U-shaped'' is the natural reading of the MI--correlation
 gap rather than a fitted result. This is where MI earns its place next to correlation:
@@ -363,51 +376,63 @@ interval excluding zero).
 \centering\small
 \caption{Corrected conditional MI at the one-month horizon (nats). Benchmark: $A$'s
 conditional information given random noise. Difference: given $B$ minus benchmark,
-an estimate of interaction information. Re-run 2026-10-13; the original 2026-09
-difference is shown for comparison.}
+an estimate of interaction information. Calendar-audited run, 2026-10-14; the
+original 2026-09 difference, before the audit, is shown for comparison.}
 \label{tab:cmi}
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lrrrrcr}
 \toprule
 $A \mid B$ & Dates & Given $B$ & Benchmark & Difference & 95\% interval & Original \\
 \midrule
-Momentum $\mid$ volatility & 108 & 0.0349 & 0.0527 & $-0.0177$ & $[-0.0285, -0.0078]$ & $-0.0176$ \\
-Volatility $\mid$ momentum & 108 & 0.0495 & 0.0697 & $-0.0202$ & $[-0.0305, -0.0096]$ & $-0.0199$ \\
-Reversal $\mid$ momentum   & 108 & 0.0305 & 0.0335 & $-0.0030$ & $[-0.0113, \phantom{-}0.0052]$ & $-0.0025$ \\
-Amihud $\mid$ turnover     & 127 & 0.0188 & 0.0206 & $-0.0018$ & $[-0.0107, \phantom{-}0.0068]$ & $-0.0013$ \\
+Momentum $\mid$ volatility & 131 & 0.0350 & 0.0508 & $-0.0158$ & $[-0.0257, -0.0059]$ & $-0.0176$ \\
+Volatility $\mid$ momentum & 131 & 0.0491 & 0.0692 & $-0.0201$ & $[-0.0310, -0.0098]$ & $-0.0199$ \\
+Reversal $\mid$ momentum   & 131 & 0.0270 & 0.0345 & $-0.0075$ & $[-0.0156, -0.00002]$ & $-0.0025$ \\
+Amihud $\mid$ turnover     & 138 & 0.0201 & 0.0201 & $\phantom{-}0.0001$ & $[-0.0072, \phantom{-}0.0067]$ & $-0.0013$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 Table~\ref{tab:cmi} shows no synergy for any pair. Momentum and volatility show net
 redundancy in both directions: as a ratio of point estimates, conditioning on
-volatility lowers momentum's estimated information by about a third (0.018 of 0.053
+volatility lowers momentum's estimated information by about 31\% (0.016 of 0.051
 nats), and conditioning on momentum lowers volatility's by about 29\%. No interval was
 computed for these ratios, so they are descriptive. Each feature retains most of its
-information, so this is partial overlap, not duplication. Reversal given momentum and
-Amihud given turnover are inconclusive: their intervals include zero, which means
-neither redundancy nor an independent increment is established. The Amihud result is
-not at odds with the near-perfect correlation of the two features. Amihud's own
-information about returns is small (0.023 nats), so there is little to remove, and the
-interval is wide relative to it.
+information, so this is partial overlap, not duplication. Reversal given momentum now
+has an interval whose upper end is $-0.00002$: it excludes zero, but only just, and
+before the calendar audit the same interval included zero. I treat it as weak evidence
+of redundancy, not an established result. Amihud given turnover is inconclusive: its
+interval is centred on zero, so neither redundancy nor an independent increment is
+established. This is not at odds with the near-perfect correlation of the two
+features. Amihud's own information about returns is small (a benchmark of 0.020
+nats), so there is little to remove, and the interval is wide relative to it.
 
 \section{Diagnostics}
 \label{sec:repro}
 
-\paragraph{Exact reproduction.} The 2026 re-run recomputed the screen from the same
-panel and code with the original random seed. It reproduced all 30 point estimates and
-date counts to floating-point precision (largest difference $10^{-16}$). The
-conditional-MI differences reproduced within 0.0005 nats under newer library versions.
-Reviewing the code during this exercise showed that the original driver set 15
-permutations and 500 bootstrap draws after the functions had already fixed their
-defaults, so the screen actually ran with 40 and 300; the effective values are reported
-here.
+\paragraph{Exact reproduction.} Before the calendar audit, a re-run of the original
+screen with the same panel, code and seed reproduced all 30 point estimates and date
+counts to floating-point precision (largest difference $10^{-16}$), and the
+conditional-MI differences within 0.0005 nats. It also showed that the original driver
+set 15 permutations and 500 bootstrap draws after the functions had fixed their
+defaults, so the screen ran with 40 and 300; the effective values are reported here.
+
+\paragraph{Effect of the calendar audit.} The audited run uses the same code, seeds and
+settings, so differences from the reproduced run come from the calendar. MI estimates
+moved by at most 0.012 nats (median 0.002). The largest change in a headline number
+is momentum's one-month IC, from 0.085 to 0.069. I split this change into the two
+possible sources. On the 107 months present in both runs, the mean IC moved from 0.084
+to 0.080. The 24 months recovered by the audit have a mean IC of 0.023. Most of the
+change therefore comes from which months were missing: closed dates had removed a set
+of months with weak momentum. (Volatility: $-0.057$ on common months, $-0.124$ on the 11
+recovered ones.) The earlier disclosure, ``about 8\% of dates lost'', understated the
+problem for momentum: 18\% of its months were missing, and not at random.
 
 \paragraph{Interval method and multiplicity (revision diagnostics).} Moving-block
-intervals were 1--2\% wider than iid intervals at one week and one month, 10\% wider at
-three and six months and 14\% wider at one year. With block lengths of 3, 6 and 12
-months for every cell, only overnight tilt at three months changes conclusion (Section
-4.1). The Holm adjustments in Section 4 were computed after the re-run from the
-archived per-date series.
+intervals were on average 1\% wider than iid intervals at one week, 6--8\% wider at
+one and three months, 19\% at six months and 24\% at one year. With block lengths of
+3, 6 and 12 months for every cell, only overnight tilt at three months has an interval
+that includes zero, and it does so at all three. The Holm adjustments in Section 4 are
+computed from the archived per-date series by the figure script in the repository.
 
 \paragraph{Estimator calibration.} Table~\ref{tab:cal} compares the
 permutation-corrected KSG estimate with the known MI of bivariate Gaussian data at
@@ -445,11 +470,12 @@ them.
 \label{tab:repro}
 \begin{tabularx}{\textwidth}{lX}
 \toprule
-Sample & Month-end rebalances 2010-01 to 2021-12 (144); 97--129 usable dates per cell; 464--490 stocks per date on average \\
+Calendar & 165 of 4,237 panel dates removed: stocks with a price below 0.5 of the centred 21-date median count \\
+Sample & Month-end rebalances 2010-01 to 2021-12 (144); 119--138 usable dates per cell; 483--497 stocks per date on average \\
 MI estimator & KSG, $k=3$, scikit-learn 1.6.1; ranks scaled to $(0,1)$; 40 within-date permutations; seed 20260809 \\
 Conditional MI & npeet-plus 0.2.0, $k=3$; 40 permutations for the conditional term; benchmark from 10 noise draws with 7 permutations each \\
-Intervals & Circular moving-block bootstrap, 2,000 draws, blocks 3/3/3/6/12 months for 1w/1m/3m/6m/1y; seed 20260810 (original run: iid, 300 draws, 90\%) \\
-Software & Python 3.13.16, NumPy 2.1.3, pandas 2.2.3 (re-run, 2026-10-13) \\
+Intervals & Circular moving-block bootstrap, 2,000 draws, blocks 3/3/3/6/12 months for 1w/1m/3m/6m/1y; seed 20260810 (original run: iid, 300 draws, 90\%). Holm $z$-statistics: 4,000 draws, seed 20261014 \\
+Software & Python 3.13.16, NumPy 2.1.3, pandas 2.2.3, scikit-learn 1.6.1 (calendar-audited run, 2026-10-14) \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -468,20 +494,20 @@ decomposition.
 \item \textbf{Net conditional measure, one horizon.} Interaction information is net of
 redundancy and synergy. The four pairs were tested only at one month; conditional
 estimation in three dimensions is noisier, and longer horizons were not pre-specified.
-\item \textbf{Weak-dependence calibration.} Absolute MI values below about 0.02 nats
-should be read as approximate.
-\item \textbf{Calendar.} About 8\% of rebalance months were lost to closed or
-incomplete dates in the panel index (Section~\ref{sec:data}); results will be
-re-estimated on a corrected calendar.
-\item \textbf{Universe approximation.} Membership comes from semi-annual snapshots,
-including the truncated 2018-06-30 snapshot.
+\item \textbf{Weak-dependence calibration.} MI values below about 0.02 nats are
+approximate. Universe membership is snapshot-based (see the box on page~1).
+\item \textbf{Calendar rule.} The 0.5 coverage threshold is a convention. Every
+flagged date in the development period had at most 19\% of normal coverage and every
+retained date at least 95\%, so any threshold between about 0.2 and 0.95 gives the same
+calendar. Some low-coverage
+weekdays could not be matched to a holiday and may be vendor gaps rather than closures.
 \end{itemize}
 
 \section{Conclusion}
 
 In Indian large- and mid-cap equities, permutation-corrected mutual information
 indicates that all six common price and volume features sort the cross-section of
-future returns, and this holds after a family-wise adjustment. Much of that
+future returns, in 29 of 30 feature--horizon cells after a family-wise adjustment. Much of that
 information, however, reflects relationships that are strong in a given month and
 unstable in sign across months. Rank IC, by averaging signed values, answers the
 question a portfolio needs answered; MI answers whether there is anything to condition
@@ -495,6 +521,7 @@ test the estimator before interpreting the market.
 \aistatement
 \availability{\ghbase/indian-equity-research/tree/main/p3_mi_screen}
 
+\renewcommand{\bibfont}{\small}\setlength{\bibsep}{1pt plus 1pt}
 \bibliographystyle{plainnat}
 \bibliography{../common/refs}
 

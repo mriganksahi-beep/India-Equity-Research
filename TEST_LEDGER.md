@@ -32,9 +32,9 @@ Format: ID | family | registration evidence | run date | sample | outcome | info
 ## Mutual information (p3_mi_screen)
 | ID | Family | Registration evidence | Run date | Sample | Outcome | Informed later choice? | Reported |
 |---|---|---|---|---|---|---|---|
-| MI-33 | MI screen, 30 cells | driver notebook states "characterization, not selection"; no winner ranked | 2026-08-10 | 2010-01..2021-12 dev | 30/30 MI>0 (Holm) | No; the four conditional pairs were fixed before the conditional run | Fig 1 |
-| CMI-34 | 4 conditional pairs, 1m | pairs listed in notebook header before run | 2026-08-11 (naive), 2026-09-02 (corrected), rerun 2026-10-13 | dev | mom/vol net redundancy; rev/mom, ami/turn inconclusive | no | Table 2 |
-| MI-35 | rank IC + extremeness MI | rule fixed in rerun notebook header before real-data stage | 2026-10-13 | dev | 13 direction-led, 4 extremeness-led, 13 mixed | no | Fig 1–2 |
+| MI-33 | MI screen, 30 cells | driver notebook states "characterization, not selection"; no winner ranked | 2026-08-10; calendar-audited rerun 2026-10-14 | 2010-01..2021-12 dev | original 30/30 MI>0 (Holm); audited 29/30 (overnight tilt 3m includes zero) | No; the four conditional pairs were fixed before the conditional run | Fig 1 |
+| CMI-34 | 4 conditional pairs, 1m | pairs listed in notebook header before run | 2026-08-11 (naive), 2026-09-02 (corrected), reruns 2026-10-13 and 2026-10-14 (audited calendar) | dev | mom/vol net redundancy; rev/mom weakly redundant on audited calendar (CI upper −0.00002; inconclusive before); ami/turn inconclusive | no | Table 2 |
+| MI-35 | rank IC + extremeness MI | rule fixed in rerun notebook header before real-data stage | 2026-10-13; audited 2026-10-14 | dev | audited: 10 direction-led, 6 extremeness-led, 13 mixed, 1 no signal (9 labels changed vs pre-audit) | no | Fig 1–2 |
 | — | Holm, block sensitivity, sign shares | post hoc revision diagnostics | 2026-10-14 | dev | see text | no | §4–5 |
 
 ## Models vs rules (p4_models_vs_rules)

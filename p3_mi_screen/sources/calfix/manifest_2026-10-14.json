@@ -1,0 +1,41 @@
+{
+  "run_date": "2026-10-14",
+  "run_dir": "/content/drive/MyDrive/moonshot_compounding/hypotheses/mi_screen/paper_rerun_calfix_2026-10-14",
+  "inputs": {
+    "daily_panel": "feature_panel_with_pit_v2_2026-07-24.parquet",
+    "amihud": "amihud_monthly_v2_2026-07-24.parquet",
+    "saved_reference": "/content/drive/MyDrive/moonshot_compounding/hypotheses/mi_screen/run_2026-08-10"
+  },
+  "effective_settings": {
+    "per_date_mi_excess.n_shuffle(default bound at import)": "40",
+    "summarise.n_boot(default bound at import)": "300",
+    "module N_SHUFFLE attr (may differ!)": "40",
+    "module N_BOOT attr (may differ!)": "300",
+    "KNN_K": "3",
+    "original CI percentiles": "(5.0, 95.0)",
+    "TRAIN_START": "2010-01-01",
+    "TRAIN_END (hold-out wall)": "2021-12-31",
+    "MIN_STOCKS_PER_DATE": "30",
+    "RNG_SEED": "20260809",
+    "SEED_EXT": "20260810",
+    "CI_LEVEL (new)": "0.95",
+    "N_BOOT_MBB (new)": "2000",
+    "BLOCK_MONTHS (new)": "{'1w': 3, '1m': 3, '3m': 3, '6m': 6, '1y': 12}",
+    "MAG_SHARE_THRESHOLD (pre-registered)": "0.5"
+  },
+  "versions": {
+    "python": "3.13.16",
+    "numpy": "2.1.3",
+    "pandas": "2.2.3",
+    "sklearn": "1.6.1",
+    "npeet_plus": "0.2.0"
+  },
+  "stages": {
+    "stage1": "ran 18.3 min; reproduced 0/30 cells within 0.002",
+    "stage2": "ran 18.3 min",
+    "stage4": "ran 7.1 min",
+    "stage5": "ran 9.6 min"
+  },
+  "total_minutes": 57.4,
+  "holdout": "all forward windows <= 2021-12-31 (audited in stage 1)"
+}

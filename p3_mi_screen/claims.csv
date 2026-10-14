@@ -1,34 +1,41 @@
 claim_id,text_snippet,value,source_file,location_in_source
-1,All 30 MI intervals exclude zero,30/30,sources/landscape_v2_2026-10-13.csv,mi_dir_lo>0
-2,15 IC intervals exclude zero,15/30,sources/landscape_v2_2026-10-13.csv,ic_dir_lo/ic_dir_hi
-3,Class counts 13/4/13/0,13 direction 4 magnitude 13 mixed,sources/landscape_v2_2026-10-13.csv,class
-4,Momentum IC 1m,0.085 [0.049 0.122],sources/landscape_v2_2026-10-13.csv,momentum_12_1 1m
-5,Momentum IC 6m,0.131,sources/landscape_v2_2026-10-13.csv,momentum_12_1 6m
-6,Vol IC 1m / 1y,-0.066 / -0.146 [-0.218 -0.072],sources/landscape_v2_2026-10-13.csv,rvol_60
-7,Vol magnitude IC,0.16-0.17,sources/landscape_v2_2026-10-13.csv,rvol_60 ic_mag
-8,Reversal IC 1w,-0.042,sources/landscape_v2_2026-10-13.csv,reversal_1m 1w
-9,Weakest cell lower bound,0.0001,sources/landscape_v2_2026-10-13.csv,overnight_tilt_21 3m mi_dir_lo
-10,MI ranges per feature,vol 0.033-0.043 mom 0.026-0.041 rev 0.012-0.022 others 0.005-0.017,sources/landscape_v2_2026-10-13.csv,mi_dir
-11,SD of monthly IC 0.09-0.20 vs 0.046,0.090-0.201; 0.0456,derived/headline_numbers.csv,ic_sd_min/max; ic_sd_null_mean
-12,Table 1 values,see table,derived/mi_accounting.csv,horizon=1m
-13,Monotone direction share median 60% range 35-91%,0.601; 0.347-0.907,derived/headline_numbers.csv,dir_share_*
-14,Monotone share median 83% IQR 71-88%,0.830; 0.708-0.881,derived/headline_numbers.csv,mono_share_*
-15,Turnover-Amihud Spearman and MI,-0.950; KSG 1.2746; implied 1.2322,sources/spearman_pairs_2026-10-13.csv,log_turnover_21/amihud_illiq
-16,Reversal-vol,rho -0.006 [-0.050 0.034]; KSG 0.0899; ratio 2.79,sources/spearman_pairs_2026-10-13.csv,reversal_1m/rvol_60
-17,Momentum-vol,rho -0.105; KSG 0.110; ratio 2.05,sources/spearman_pairs_2026-10-13.csv,momentum_12_1/rvol_60
-18,Naive survival ratios,117% 117% 128% 169%,sources/conditional_mi_2026-08-10.csv,fraction_survived
-19,Estimator scale ratio,0.68-1.42,sources/cmi_diagnostics_2026-08-10.csv,marg_ratio
-20,Noise-conditioning survival,44%-113%,sources/cmi_diagnostics_2026-08-10.csv,survived_noise
-21,Self-conditioning,-8% to +6%,sources/cmi_diagnostics_2026-08-10.csv,survived_self
-22,Table 2 CMI,see table,sources/cmi_v2_2026-10-13.csv,all rows (ci95_mbb_*; saved_excess)
-23,Share removed mom|vol 34% vol|mom 29%,0.0177/0.0527; 0.0202/0.0697,sources/cmi_v2_2026-10-13.csv,excess_above_floor / noise_floor
-24,Exact reproduction,max abs diff ~1e-16,reproduction_check_2026-10-13.csv (Drive 1XNEAfbK0Of5zggAOmstpMqScsaNagZRW),abs_diff
-25,Effective settings 40 shuffles 300 boot,40; 300,manifest_2026-10-13.json (Drive 1crGA1DZ-TM3Cegrmynm53g7FdR6MW4Fh),effective_settings
-26,CI width ratio by horizon,1.02 1.01 1.10 1.10 1.14; cell range 0.81-1.50,derived/ci_width_by_horizon.csv,all
-27,Calibration table,see table,sources/ksg_calibration_2026-10-13.csv,all
-28,Self-test planted / noise,0.1348 [0.1233 0.1456]; 0.0041 [-0.0022 0.0107],moonshot_mi_screen_driver.ipynb (Drive 1hHdY2mRvc1PYGy0OgDeRFtSHefC1ySnF),Cell C output
-29,Panel 4237 dates x 1069 tickers; 144 rebalances,4237; 1069; 144,moonshot_mi_screen_driver.ipynb,Cell D output
-30,31% NaN rows,0.312-0.313,moonshot_mi_screen_driver.ipynb,cell 15 output
-31,Dates per cell 97-129; names 464-490,97-129; 463.6-490.1,derived/headline_numbers.csv,n_dates_*; names_*
-32,Pooling inflated MI 3-4x on synthetic,3-4x,mi_screen.py,per_date_mi_excess docstring (development note; not re-measured)
-33,Amihud marginal npeet MI,0.0234,sources/cmi_v2_2026-10-13.csv,marginal_mi_npeet
+1,29 of 30 MI intervals exclude zero,29/30 (exception overnight_tilt_21 3m lo -0.0006),sources/calfix/landscape_v2_2026-10-14.csv,mi_dir_lo>0
+2,29 MI cells survive Holm,29/30 (overnight 3m p_holm 0.056),derived/multiplicity_and_sign.csv,p_mi_holm<0.05
+3,15 IC intervals exclude zero; 12 survive Holm,15; 12,sources/calfix/landscape_v2_2026-10-14.csv; derived/multiplicity_and_sign.csv,ic_dir_lo/hi; p_ic_holm
+4,Class counts 10/6/13/1,10 direction 6 magnitude 13 mixed 1 no_signal,sources/calfix/landscape_v2_2026-10-14.csv,class
+5,9 of 30 labels changed vs pre-audit run,9,sources/calfix/landscape_v2_2026-10-14.csv vs sources/landscape_v2_2026-10-13.csv,class (printed by make_figures.py)
+6,Momentum IC 1m / 6m,0.0691 [0.0360 0.1008]; 0.1206,sources/calfix/landscape_v2_2026-10-14.csv,momentum_12_1
+7,Vol IC 1m / 1y,-0.0620; -0.1459 [-0.2193 -0.0701],sources/calfix/landscape_v2_2026-10-14.csv,rvol_60
+8,Vol extremeness IC,0.160-0.170,sources/calfix/landscape_v2_2026-10-14.csv,rvol_60 ic_mag
+9,Reversal IC 1w,-0.0561 [-0.0754 -0.0363],sources/calfix/landscape_v2_2026-10-14.csv,reversal_1m 1w
+10,Overnight 3m MI and IC,MI 0.0033 (lo -0.0007/-0.0009/-0.0009 at blocks 3/6/12); IC -0.0219 [-0.0384 -0.0053],derived/multiplicity_and_sign.csv; landscape,overnight_tilt_21 3m
+11,MI ranges per feature,vol 0.0359-0.0462 mom 0.0291-0.0364 rev 0.0127-0.0218 others 0.0059-0.0158 (+ovn 3m 0.0033),sources/calfix/landscape_v2_2026-10-14.csv,mi_dir
+12,Only overnight 1y IC survives Holm among overnight cells,p_holm 0.029,derived/multiplicity_and_sign.csv,p_ic_holm
+13,Months outside band 27-77%; turnover 29/22 momentum 50/18,see file,derived/multiplicity_and_sign.csv,frac_out*
+14,Table 1 values,see table,derived/mi_accounting.csv + derived/multiplicity_and_sign.csv,horizon=1m
+15,Monthly-IC vs mean-IC implied MI ratio 14x momentum 20x vol,0.0219/0.0015; 0.0202/0.0010,derived/mi_accounting.csv,imp_dir / implied_from_mean_ic
+16,Direction share median 57% range 33-104%,0.570; 0.325-1.039,derived/headline_numbers.csv,dir_share_*
+17,Monotone share median 82% IQR 69-91%,0.818; 0.693-0.908,derived/headline_numbers.csv,mono_share_*
+18,Turnover-Amihud,rho -0.9511; KSG 1.2785; implied 1.2365 (ratio 1.034),sources/calfix/spearman_pairs_2026-10-14.csv,log_turnover_21/amihud_illiq
+19,Reversal-vol,rho 0.0131 [-0.0305 0.0547]; KSG 0.0919; ratio 2.59,sources/calfix/spearman_pairs_2026-10-14.csv,reversal_1m/rvol_60
+20,Momentum-vol,rho -0.1095; KSG 0.1090; ratio 1.97,sources/calfix/spearman_pairs_2026-10-14.csv,momentum_12_1/rvol_60
+21,Naive survival ratios,117% 117% 128% 169%,sources/conditional_mi_2026-08-10.csv,fraction_survived
+22,Estimator scale ratio,0.68-1.42,sources/cmi_diagnostics_2026-08-10.csv,marg_ratio
+23,Noise-conditioning survival,44%-113%,sources/cmi_diagnostics_2026-08-10.csv,survived_noise
+24,Self-conditioning,-8% to +6%,sources/cmi_diagnostics_2026-08-10.csv,survived_self
+25,Table 2 CMI,see table,sources/calfix/cmi_v2_2026-10-14.csv,cond_on_B_excess; noise_floor; excess_above_floor; ci95_mbb_*; saved_excess
+26,Share removed mom|vol 31% vol|mom 29%,0.0158/0.0508; 0.0201/0.0692,sources/calfix/cmi_v2_2026-10-14.csv,excess_above_floor / noise_floor
+27,Reversal|momentum upper bound,-0.000019,sources/calfix/cmi_v2_2026-10-14.csv,ci95_mbb_hi
+28,Amihud benchmark,0.0201,sources/calfix/cmi_v2_2026-10-14.csv,noise_floor
+29,Exact reproduction (pre-audit calendar),max abs diff ~1e-16,reproduction_check_2026-10-13.csv (Drive 1XNEAfbK0Of5zggAOmstpMqScsaNagZRW),abs_diff
+30,Effective settings 40 shuffles 300 boot,40; 300,sources/calfix/manifest_2026-10-14.json,effective_settings
+31,MI change after audit max 0.012 median 0.002,0.01224; 0.00218,sources/calfix/reproduction_check_2026-10-14.csv,abs_diff (vs original 2026-08-10 values; identical to 2026-10-13 reproduction)
+32,Momentum IC split: common 107 months 0.084->0.080; 24 recovered months 0.023,0.0839; 0.0795; 0.0228,per_date_full 2026-10-13 vs 2026-10-14,ad hoc comparison by year-month (see CHANGELOG)
+33,Vol IC split: common -0.057; 11 recovered -0.124,-0.0567; -0.1235,per_date_full 2026-10-13 vs 2026-10-14,same comparison
+34,CI width ratio by horizon,1.007 1.080 1.060 1.188 1.237,derived/ci_width_by_horizon.csv,mean
+35,Calibration table,see table,sources/calfix/ksg_calibration_2026-10-14.csv,all (identical to 2026-10-13)
+36,Self-test planted / noise,0.1348 [0.1233 0.1456]; 0.0041 [-0.0022 0.0107],moonshot_mi_screen_driver.ipynb (Drive 1hHdY2mRvc1PYGy0OgDeRFtSHefC1ySnF),Cell C output
+37,Panel 4237 dates x 1069 tickers; 144 rebalances,4237; 1069; 144,sources/calfix/calendar_audit_2026-10-14.csv; driver notebook,row count
+38,Calendar audit 165 removed (158 dev; 139 zero rows); dev removed <=0.186 kept >=0.955,165; 158; 139; 0.186; 0.955,sources/calfix/calendar_audit_2026-10-14.csv,closed_or_thin; coverage
+39,Dates per cell 119-138; names 483-497,119-138; 482.6-496.8,derived/headline_numbers.csv,n_dates_*; names_*
+40,Lost months pre-audit: 11 (most features) / 24 (momentum),11; 24,per_date_full 2026-10-13 vs 2026-10-14,added months

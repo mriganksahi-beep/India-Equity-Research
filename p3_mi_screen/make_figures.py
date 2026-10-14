@@ -1,11 +1,13 @@
 """Build every figure and derived table for Paper 3 from files in sources/.
 
-Inputs (all produced by moonshot_mi_paper_rerun.ipynb, 2026-10-13, or by the
-original 2026-08-10 runs):
-  sources/landscape_v2_2026-10-13.csv      per-cell summaries, 95% MBB CIs
-  sources/per_date_full_2026-10-13.parquet per-(feature,horizon,date) values
-  sources/spearman_pairs_2026-10-13.csv    feature-pair Spearman + MI
-  sources/mi_landscape_2026-08-10.csv      original screen (90% iid CIs)
+Inputs (produced by moonshot_mi_calfix_rerun.ipynb, 2026-10-14, i.e. the
+calendar-corrected run in which 165 exchange-closed or thin dates were removed
+from the panel index before any positional shift; see
+sources/calfix/calendar_audit_2026-10-14.csv):
+  sources/calfix/landscape_v2_2026-10-14.csv      per-cell summaries, 95% MBB CIs
+  sources/calfix/per_date_full_2026-10-14.parquet per-(feature,horizon,date) values
+  sources/calfix/spearman_pairs_2026-10-14.csv    feature-pair Spearman + MI
+The pre-correction run (2026-10-13) is kept in sources/ for comparison only.
 Outputs: figures/*.pdf and derived/*.csv (numbers quoted in the paper).
 """
 from pathlib import Path
@@ -37,10 +39,15 @@ plt.rcParams.update({
     "axes.grid": True, "grid.color": GRID, "grid.linewidth": 0.5,
     "legend.frameon": False, "pdf.fonttype": 42})
 
-land = pd.read_csv(SRC / "landscape_v2_2026-10-13.csv")
-pdd = pd.read_parquet(SRC / "per_date_full_2026-10-13.parquet")
-sp = pd.read_csv(SRC / "spearman_pairs_2026-10-13.csv")
-old = pd.read_csv(SRC / "mi_landscape_2026-08-10.csv")
+CAL = SRC / "calfix"
+land = pd.read_csv(CAL / "landscape_v2_2026-10-14.csv")
+pdd = pd.read_parquet(CAL / "per_date_full_2026-10-14.parquet")
+sp = pd.read_csv(CAL / "spearman_pairs_2026-10-14.csv")
+pre = pd.read_csv(SRC / "landscape_v2_2026-10-13.csv")   # pre-correction, comparison only
+pdd["date"] = pd.to_datetime(pdd["date"])
+assert pdd["date"].max() <= pd.Timestamp("2021-12-31"), "hold-out wall breached"
+assert not pdd[["mi_dir", "ic_dir", "mi_mag", "ic_mag", "n"]].isna().any().any(), \
+    "NaN in per-date series: handle explicitly, do not drop silently"
 
 
 def implied_mi(rho, n):
@@ -71,6 +78,58 @@ w["ratio_mbb_vs_iid95"] = w.w_mbb95 / w.w_iid95
 w.groupby("horizon", sort=False)["ratio_mbb_vs_iid95"].agg(["mean", "min", "max"]) \
  .to_csv(DER / "ci_width_by_horizon.csv")
 
+
+# ---------------------------------------------------------------- multiplicity
+# Revision diagnostic. Circular moving-block bootstrap of each cell's per-date
+# series (same scheme as the notebook). z = mean / bootstrap SD. MI: one-sided
+# (H1: MI_excess > 0). IC: two-sided. Holm step-down over the 30 cells of each
+# family separately. Also: MI lower bound at block lengths 3, 6 and 12 months,
+# and the share of months whose IC lies outside +/-1.96/sqrt(n-1).
+from scipy.stats import norm
+
+BLOCK = {"1w": 3, "1m": 3, "3m": 3, "6m": 6, "1y": 12}
+N_BOOT, SEED = 4000, 20261014
+
+
+def mbb_means(X, block, n_boot, rng):
+    """Circular moving-block bootstrap of column means; rows must be in date order."""
+    X = np.asarray(X, float)
+    X = X[:, None] if X.ndim == 1 else X
+    m = X.shape[0]; L = int(min(max(block, 1), m)); nb = int(np.ceil(m / L))
+    out = np.empty((n_boot, X.shape[1]))
+    for b in range(n_boot):
+        idx = ((rng.integers(0, m, nb)[:, None] + np.arange(L)[None, :]) % m).ravel()[:m]
+        out[b] = X[idx].mean(axis=0)
+    return out
+
+
+def holm(p):
+    p = np.asarray(p, float); order = np.argsort(p); m = len(p)
+    adj = np.empty(m); run = 0.0
+    for r, i in enumerate(order):
+        run = max(run, min(1.0, (m - r) * p[i])); adj[i] = run
+    return adj
+
+
+rng = np.random.default_rng(SEED)
+rows = []
+for (f, h), g in pdd.groupby(["feature", "horizon"], sort=False):
+    g = g.sort_values("date")
+    X = g[["mi_dir", "ic_dir"]].to_numpy()
+    d = mbb_means(X, BLOCK[h], N_BOOT, rng)
+    mi, ic = X.mean(axis=0); sd_mi, sd_ic = d.std(axis=0, ddof=1)
+    lo = {L: np.quantile(mbb_means(X[:, 0], L, N_BOOT, rng)[:, 0], 0.025) for L in (3, 6, 12)}
+    band = 1.96 / np.sqrt(g.n.to_numpy() - 1)
+    rows.append(dict(feature=f, horizon=h, n_dates=len(g), mi=mi, z_mi=mi / sd_mi,
+                     ic=ic, z_ic=ic / sd_ic, lo_L3=lo[3], lo_L6=lo[6], lo_L12=lo[12],
+                     frac_out_pos=(g.ic_dir.to_numpy() > band).mean(),
+                     frac_out_neg=(g.ic_dir.to_numpy() < -band).mean()))
+mt = pd.DataFrame(rows)
+mt["frac_out"] = mt.frac_out_pos + mt.frac_out_neg
+mt["p_mi"] = norm.sf(mt.z_mi); mt["p_mi_holm"] = holm(mt.p_mi)
+mt["p_ic"] = 2 * norm.sf(mt.z_ic.abs()); mt["p_ic_holm"] = holm(mt.p_ic)
+mt.to_csv(DER / "multiplicity_and_sign.csv", index=False)
+
 summary = {
     "cells": len(land),
     "mi_ci_excl_zero": int((land.mi_dir_lo > 0).sum()),
@@ -88,6 +147,10 @@ summary = {
     "ic_sd_null_mean": acc.ic_sd_null.mean(),
     "n_dates_min": int(land.n_dates.min()), "n_dates_max": int(land.n_dates.max()),
     "names_min": land.mean_n.min(), "names_max": land.mean_n.max(),
+    "mi_holm_sig": int((mt.p_mi_holm < 0.05).sum()),
+    "ic_holm_sig": int((mt.p_ic_holm < 0.05).sum()),
+    "mi_lo_neg_any_block": int((mt[["lo_L3", "lo_L6", "lo_L12"]] <= 0).any(axis=1).sum()),
+    "frac_out_min": mt.frac_out.min(), "frac_out_max": mt.frac_out.max(),
 }
 pd.Series(summary).to_csv(DER / "headline_numbers.csv", header=["value"])
 
@@ -156,11 +219,16 @@ ax.scatter(sp.copula_implied_mi_excess.clip(lower=lo), sp.ksg_mi_excess, s=22,
            color=BLUE, edgecolor="white", linewidth=0.6, zorder=3)
 short = {"momentum_12_1": "Mom", "reversal_1m": "Rev", "rvol_60": "Vol",
          "log_turnover_21": "Turn", "overnight_tilt_21": "Ovn", "amihud_illiq": "Ami"}
+# Hand-set label offsets (points) so neighbouring labels do not overlap.
+OFFSET = {("momentum_12_1", "rvol_60"): (-34, 5), ("reversal_1m", "rvol_60"): (-36, -3),
+          ("log_turnover_21", "overnight_tilt_21"): (-40, 3),
+          ("overnight_tilt_21", "amihud_illiq"): (5, -6)}
 for _, r in sp.iterrows():
     if r.ksg_mi_excess - r.copula_implied_mi_excess > 0.03 or r.ksg_mi_excess > 1:
         ax.annotate(f"{short[r.feature_a]}–{short[r.feature_b]}",
                     (max(r.copula_implied_mi_excess, lo), r.ksg_mi_excess),
-                    xytext=(4, -3), textcoords="offset points", fontsize=7, color=INK)
+                    xytext=OFFSET.get((r.feature_a, r.feature_b), (4, -3)),
+                    textcoords="offset points", fontsize=7, color=INK)
 ax.set_xscale("log"); ax.set_yscale("log")
 ax.set_xlabel("MI implied by per-date Spearman (nats)")
 ax.set_ylabel("KSG MI$_{\\mathrm{excess}}$ (nats)")
@@ -170,3 +238,7 @@ print(pd.Series(summary).round(4).to_string())
 print(acc[["feature", "horizon", "mi_dir", "imp_dir", "imp_mag", "dir_share",
            "mono_share", "ic_sd"]].round(4).to_string(index=False))
 print(pd.read_csv(DER / "ci_width_by_horizon.csv").round(3).to_string(index=False))
+print(mt.drop(columns=["p_mi", "p_ic"]).round(4).to_string(index=False))
+cmp = land.merge(pre, on=["feature", "horizon"], suffixes=("", "_pre"))
+print(cmp[["feature", "horizon", "n_dates", "n_dates_pre", "mi_dir", "mi_dir_pre",
+           "ic_dir", "ic_dir_pre", "class", "class_pre"]].round(4).to_string(index=False))
