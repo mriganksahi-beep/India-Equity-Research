@@ -1,0 +1,49 @@
+event,test_year,skill_M1,skill_M2
+Outperform,2014,0.004,0.003
+Outperform,2015,0.003,0.003
+Outperform,2016,-0.0,-0.001
+Outperform,2017,0.003,0.003
+Outperform,2018,0.008,0.008
+Outperform,2019,0.013,0.013
+Outperform,2020,-0.004,-0.005
+Outperform,2021,-0.002,-0.002
+Outperform,2022,0.0,0.001
+Outperform,2023,0.001,0.001
+Outperform,2024,0.001,-0.0
+Outperform,2025,0.008,0.009
+Top performer,2014,0.002,0.002
+Top performer,2015,0.006,0.006
+Top performer,2016,-0.001,-0.001
+Top performer,2017,0.006,0.007
+Top performer,2018,-0.003,-0.004
+Top performer,2019,0.003,0.005
+Top performer,2020,-0.002,-0.0
+Top performer,2021,0.002,0.0
+Top performer,2022,0.001,0.002
+Top performer,2023,0.01,0.013
+Top performer,2024,0.002,-0.0
+Top performer,2025,-0.001,-0.001
+Crash,2014,0.025,0.025
+Crash,2015,0.02,0.023
+Crash,2016,0.017,0.018
+Crash,2017,0.021,0.023
+Crash,2018,0.034,0.034
+Crash,2019,0.052,0.055
+Crash,2020,0.003,0.003
+Crash,2021,0.004,0.005
+Crash,2022,0.012,0.013
+Crash,2023,0.006,0.006
+Crash,2024,0.014,0.015
+Crash,2025,0.024,0.028
+High vol,2014,0.132,0.147
+High vol,2015,0.15,0.163
+High vol,2016,0.136,0.15
+High vol,2017,0.124,0.14
+High vol,2018,0.165,0.183
+High vol,2019,0.221,0.247
+High vol,2020,0.056,0.059
+High vol,2021,0.079,0.09
+High vol,2022,0.131,0.141
+High vol,2023,0.132,0.141
+High vol,2024,0.12,0.133
+High vol,2025,0.098,0.127

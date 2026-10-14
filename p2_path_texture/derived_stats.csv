@@ -1,0 +1,101 @@
+key,value,description
+m7_panel_rows,84144,entropy panel stock-months (as cached by M7)
+m7_panel_first_rb,2011-01-31,first rebalance in entropy panel
+m7_panel_last_rb,2026-06-30,last rebalance in entropy panel
+m7_panel_months,181,rebalance months in entropy panel
+m7_full_unc_coef,-0.00011655050038414399,M7 step-1 unc mean monthly FM coef (full)
+m7_full_unc_t,-0.2942463365363295,M7 step-1 unc NW(6) t (full)
+m7_full_unc_months,176,M7 step-1 months used (full)
+m7_full_unc_nwci_lo,-0.0008929033462409615,"95% CI lower, coef +/- 1.96 NW SE (post hoc)"
+m7_full_unc_nwci_hi,0.0006598023454726734,"95% CI upper, coef +/- 1.96 NW SE (post hoc)"
+m7_full_unc_cbb_lo,-0.0009317992907166309,95% circular block bootstrap (block 6) lower (post hoc)
+m7_full_unc_cbb_hi,0.000686959998183101,95% circular block bootstrap (block 6) upper (post hoc)
+m7_full_dgw_coef,-4.8350700489390644e-05,M7 step-1 dgw mean monthly FM coef (full)
+m7_full_dgw_t,-0.12158345573717486,M7 step-1 dgw NW(6) t (full)
+m7_full_dgw_months,176,M7 step-1 months used (full)
+m7_full_dgw_nwci_lo,-0.0008277936961224715,"95% CI lower, coef +/- 1.96 NW SE (post hoc)"
+m7_full_dgw_nwci_hi,0.0007310922951436902,"95% CI upper, coef +/- 1.96 NW SE (post hoc)"
+m7_full_dgw_cbb_lo,-0.0008381283023917105,95% circular block bootstrap (block 6) lower (post hoc)
+m7_full_dgw_cbb_hi,0.0007487653255873045,95% circular block bootstrap (block 6) upper (post hoc)
+m7_dev_unc_coef,0.00038545666373318663,M7 step-1 unc mean monthly FM coef (dev)
+m7_dev_unc_t,0.8845813844907698,M7 step-1 unc NW(6) t (dev)
+m7_dev_unc_months,125,M7 step-1 months used (dev)
+m7_dev_unc_nwci_lo,-0.00046861405735932693,"95% CI lower, coef +/- 1.96 NW SE (post hoc)"
+m7_dev_unc_nwci_hi,0.0012395273848257002,"95% CI upper, coef +/- 1.96 NW SE (post hoc)"
+m7_dev_unc_cbb_lo,-0.0005783271734155931,95% circular block bootstrap (block 6) lower (post hoc)
+m7_dev_unc_cbb_hi,0.0012801771258062662,95% circular block bootstrap (block 6) upper (post hoc)
+m7_dev_dgw_coef,0.00047839433707618596,M7 step-1 dgw mean monthly FM coef (dev)
+m7_dev_dgw_t,1.0929444646487823,M7 step-1 dgw NW(6) t (dev)
+m7_dev_dgw_months,125,M7 step-1 months used (dev)
+m7_dev_dgw_nwci_lo,-0.00037952015995238825,"95% CI lower, coef +/- 1.96 NW SE (post hoc)"
+m7_dev_dgw_nwci_hi,0.0013363088341047601,"95% CI upper, coef +/- 1.96 NW SE (post hoc)"
+m7_dev_dgw_cbb_lo,-0.00045308794376544423,95% circular block bootstrap (block 6) lower (post hoc)
+m7_dev_dgw_cbb_hi,0.0013710678931177272,95% circular block bootstrap (block 6) upper (post hoc)
+m7_stab_dev_mean,0.4441111111111111,mean of the 9 dev-period stability months
+m7_stab_dev_n,9,number of stability months inside 2010-2021
+pe_dev_rows,59184,entropy-panel stock-months 2011-01..2021-12
+pe_dev_tickers,865,tickers in dev slice
+pe_dev_q01,0.9664622578535695,"PE(m=4) quantile 0.01, dev"
+pe_dev_q50,0.9857398194146181,"PE(m=4) quantile 0.5, dev"
+pe_dev_q99,0.9945180977413155,"PE(m=4) quantile 0.99, dev"
+pe_dev_min,0.8052013543225539,"PE(m=4) minimum, dev"
+pe_dev_share_ge095,0.9983779399837794,share of dev stock-months with PE>=0.95
+pe_dev_xs_sd,0.006489590557931936,mean within-month cross-sectional SD of PE
+pe_dev_corr_pe3,0.785197590008065,"corr PE4,PE3 dev (pooled)"
+sampen_dev_median,1.8832745780638283,"SampEn(m=2,r=0.2) median, dev"
+pe_null_mean,0.9857190554050845,"iid null PE(m=4), n=232, 20000 draws (post hoc)"
+pe_null_sd,0.005318617786211925,iid null PE SD (post hoc)
+pe_null_q01,0.9697276666786286,iid null PE 1st pct (post hoc)
+pe_null_q99,0.9948836234930098,iid null PE 99th pct (post hoc)
+pe_noise_share,0.6484531350993028,iid-null PE variance / mean within-month cross-sectional PE variance (post hoc)
+pe_dev_share_inside_null99,0.9845566369288997,share of dev PE values inside central 99% of iid null (post hoc)
+sampen_null_median,2.203553712387867,"iid null SampEn(2,0.2) median, 500 draws (post hoc)"
+d_panel_rows,59184,VR panel stock-months
+d_panel_tickers,865,VR panel tickers
+d_panel_first_rb,2011-01-31,first VR rebalance
+d_panel_last_rb,2021-12-31,last VR rebalance
+d_unc_coef,-0.000586074537913388,D gate-1 unc mean monthly coef (replication)
+d_unc_t,-0.41025891413167576,D gate-1 unc NW(6) t (replication)
+d_unc_months,125,months used
+d_unc_nwci_lo,-0.0033860285541265603,"95% CI lower, NW (post hoc)"
+d_unc_nwci_hi,0.002213879478299784,"95% CI upper, NW (post hoc)"
+d_unc_cbb_lo,-0.003233307926659053,95% circular block bootstrap lower (post hoc)
+d_unc_cbb_hi,0.002304366650509647,95% circular block bootstrap upper (post hoc)
+d_res_coef,-0.00027764009755841805,D gate-1 res mean monthly coef (replication)
+d_res_t,-0.22780614846953912,D gate-1 res NW(6) t (replication)
+d_res_months,125,months used
+d_res_nwci_lo,-0.002666401748068756,"95% CI lower, NW (post hoc)"
+d_res_nwci_hi,0.00211112155295192,"95% CI upper, NW (post hoc)"
+d_res_cbb_lo,-0.002495157416333211,95% circular block bootstrap lower (post hoc)
+d_res_cbb_hi,0.002164654221006427,95% circular block bootstrap upper (post hoc)
+d_vr10_unc_coef,-0.001010071792811246,"post hoc uncontrolled coef, vr10"
+d_vr10_unc_t,-0.7176206934877538,"post hoc uncontrolled NW t, vr10"
+d_vr42_unc_coef,0.00012020258536580628,"post hoc uncontrolled coef, vr42"
+d_vr42_unc_t,0.09048885326907567,"post hoc uncontrolled NW t, vr42"
+vr_median,0.9498659950109827,"median VR(21), dev panel"
+vr_xs_sd,0.4690576191610142,mean within-month cross-sectional SD of VR(21)
+vr_null_mean,1.0037055851928791,"iid Gaussian RW null VR(21), n=232 (post hoc)"
+vr_null_sd,0.3515498386720819,iid Gaussian RW null VR SD (post hoc)
+vr_null_median,0.9581844148421099,iid Gaussian RW null VR(21) median (post hoc)
+vr_noise_share,0.5317063461123644,null variance / mean cross-sectional variance (post hoc)
+c_months,133,C gate months
+c_first_month,2010-06,C first month
+c_last_month,2021-12,C last month
+c_rho_full_amihud_mean,0.08801764271539089,C mean rho_full_amihud
+c_rho_full_amihud_cbb_lo,0.05612541783732443,95% circular block bootstrap lower (post hoc)
+c_rho_full_amihud_cbb_hi,0.11767829144730882,95% circular block bootstrap upper (post hoc)
+c_rho_liquid_amihud_mean,0.3033010398322998,C mean rho_liquid_amihud
+c_rho_liquid_amihud_cbb_lo,0.2610405209694152,95% circular block bootstrap lower (post hoc)
+c_rho_liquid_amihud_cbb_hi,0.3431503144629961,95% circular block bootstrap upper (post hoc)
+c_rho_full_turnover_mean,0.04572904541616146,C mean rho_full_turnover
+c_rho_full_turnover_cbb_lo,0.021935887708060674,95% circular block bootstrap lower (post hoc)
+c_rho_full_turnover_cbb_hi,0.07149811052300706,95% circular block bootstrap upper (post hoc)
+c_rho_liquid_turnover_mean,-0.08078072152212723,C mean rho_liquid_turnover
+c_rho_liquid_turnover_cbb_lo,-0.11386687161037164,95% circular block bootstrap lower (post hoc)
+c_rho_liquid_turnover_cbb_hi,-0.044916365186871136,95% circular block bootstrap upper (post hoc)
+c_min_nfull_month,2015-02,month with smallest full cross-section
+c_min_nfull,56,smallest full cross-section
+c_d2_months,132,D2 months
+c_d2_raw_mean,0.3030486431220678,D2 raw mean
+c_d2_partial_mean,0.242273013822999,D2 partial mean
+c_d2_collapse,0.20054743909408768,D2 collapse fraction

@@ -1,0 +1,87 @@
+key,value,description
+tie_rebuild_rows,2189,"stock-months rebuilt from raw files (35 tickers, 2011-2021)"
+tie_rebuild_exact,2189,of which rebuilt PE equals cached PE to 1e-9
+tie_low_n,965,"stock-months, low group"
+tie_low_tickers,15,"tickers, low group"
+tie_low_any_tie_share,0.522279792746114,share of stock-months with >=1 tied 4-window
+tie_low_tied_window_med,0.004366812227074236,median share of tied 4-windows
+tie_low_zero_med,0.03017241379310345,median share of zero-return days
+tie_low_pe_med,0.9831431924109417,median cached PE
+tie_low_jit_shift_med,0.0,"median PE change, random tie-break"
+tie_low_nozero_shift_med,-0.0003685478571063827,"median PE change, zero days dropped"
+tie_low_tiefree_shift_med,0.0,"median PE change, tie-free windows only"
+tie_rand_n,1235,"stock-months, rand group"
+tie_rand_tickers,20,"tickers, rand group"
+tie_rand_any_tie_share,0.145748987854251,share of stock-months with >=1 tied 4-window
+tie_rand_tied_window_med,0.0,median share of tied 4-windows
+tie_rand_zero_med,0.004310344827586207,median share of zero-return days
+tie_rand_pe_med,0.9855376311512206,median cached PE
+tie_rand_jit_shift_med,0.0,"median PE change, random tie-break"
+tie_rand_nozero_shift_med,0.0,"median PE change, zero days dropped"
+tie_rand_tiefree_shift_med,0.0,"median PE change, tie-free windows only"
+tie_sub95_n,93,low-tail stock-months with cached PE < 0.95 in subset
+tie_sub95_jit_ge095,0.043010752688172046,share of those reaching PE>=0.95 under random tie-break
+tie_sub95_zero_med,0.11206896551724138,"median zero-return share, PE<0.95 stock-months"
+tie_sub95_jit_min,0.816921688786055,"min PE under random tie-break, PE<0.95 stock-months"
+shree_pe_cached,0.8052013543225539,SHREEASHTA 2013-07-31: pe_cached
+shree_pe_jitter,0.816921688786055,SHREEASHTA 2013-07-31: pe_jitter
+shree_pe_nozero,0.681466110667771,SHREEASHTA 2013-07-31: pe_nozero
+shree_pe_tiefree,0.6986088178280109,SHREEASHTA 2013-07-31: pe_tiefree
+shree_zero_share,0.19827586206896552,SHREEASHTA 2013-07-31: zero_share
+shree_tied_window_share,0.2576419213973799,SHREEASHTA 2013-07-31: tied_window_share
+shree_median_price,2.25,SHREEASHTA 2013-07-31: median_price
+shree_n_ret,232,SHREEASHTA 2013-07-31: n_ret
+dev_pe_lt095_rows,96,dev stock-months with PE<0.95 (full panel)
+dev_pe_lt095_tickers,18,tickers with any PE<0.95
+dev_pe_lt095_covered,0.96875,share of PE<0.95 stock-months whose ticker is in the inspected low-tail set
+m7_full_drop095_unc,-0.00033571496044662737,"M7 uncontrolled coef, drop095, full"
+m7_full_drop095_unc_t,-0.9156221765570776,"NW t, drop095, full"
+m7_full_drop095_dgw,-0.0003028885942181993,"M7 +DGW coef, drop095, full"
+m7_full_drop095_dgw_t,-0.82651371376452,"NW t, drop095, full"
+m7_full_drop095_T,176,"months, drop095, full"
+m7_full_rank_unc,-0.0004618791984060486,"M7 uncontrolled coef, rank, full"
+m7_full_rank_unc_t,-1.2086517410259612,"NW t, rank, full"
+m7_full_rank_dgw,-0.00042547808058046447,"M7 +DGW coef, rank, full"
+m7_full_rank_dgw_t,-1.1094852951363614,"NW t, rank, full"
+m7_full_rank_T,176,"months, rank, full"
+m7_dev_drop095_unc,0.0001013115054041233,"M7 uncontrolled coef, drop095, dev"
+m7_dev_drop095_unc_t,0.255078031433107,"NW t, drop095, dev"
+m7_dev_drop095_dgw,0.0001535407748256537,"M7 +DGW coef, drop095, dev"
+m7_dev_drop095_dgw_t,0.3843904500247488,"NW t, drop095, dev"
+m7_dev_drop095_T,125,"months, drop095, dev"
+m7_dev_rank_unc,0.00013015022371834595,"M7 uncontrolled coef, rank, dev"
+m7_dev_rank_unc_t,0.3246925975721842,"NW t, rank, dev"
+m7_dev_rank_dgw,0.0001869061515657234,"M7 +DGW coef, rank, dev"
+m7_dev_rank_dgw_t,0.4663658221679227,"NW t, rank, dev"
+m7_dev_rank_T,125,"months, rank, dev"
+pe_min_z,-17.33554661059995,"most extreme within-month z-score of PE, dev"
+d_strict_rows,58711,VR stock-months after dropping 2021-12-31
+d_strict_last_rb,2021-11-30,last rebalance in strict sample
+d_strict_T,124,months used
+d_strict_unc,-0.0006643920317531823,"D uncontrolled coef, strict"
+d_strict_unc_t,-0.4634694732018274,NW t
+d_strict_res,-0.0003407159363487578,"D gate coef, strict"
+d_strict_res_t,-0.2778569267812438,NW t
+d_strict_res_ci_lo,-0.002744122765106082,95% NW interval lower
+d_strict_res_ci_hi,0.0020626908924085666,95% NW interval upper
+vrprobe_n232_s200_mean,0.9547447655360378,"RW VR(21) mean, Gaussian returns, n=232, seeds 0..199"
+vrprobe_n232_s200_sd,0.316887858339348,"RW VR(21) SD, n=232, seeds 0..199"
+vrprobe_n232_s200_median,0.9112234481869032,"RW VR(21) median, n=232, seeds 0..199"
+vrprobe_n232_s20000_mean,1.0029081950416545,"RW VR(21) mean, Gaussian returns, n=232, seeds 0..19999"
+vrprobe_n232_s20000_sd,0.351065516808755,"RW VR(21) SD, n=232, seeds 0..19999"
+vrprobe_n232_s20000_median,0.9538979369185051,"RW VR(21) median, n=232, seeds 0..19999"
+vrprobe_n252_s200_mean,0.9489966369074306,"RW VR(21) mean, Gaussian returns, n=252, seeds 0..199"
+vrprobe_n252_s200_sd,0.2967195283578355,"RW VR(21) SD, n=252, seeds 0..199"
+vrprobe_n252_s200_median,0.9243577539907518,"RW VR(21) median, n=252, seeds 0..199"
+vrprobe_n252_s20000_mean,1.0024551894253062,"RW VR(21) mean, Gaussian returns, n=252, seeds 0..19999"
+vrprobe_n252_s20000_sd,0.33576280885900234,"RW VR(21) SD, n=252, seeds 0..19999"
+vrprobe_n252_s20000_median,0.9562836911025083,"RW VR(21) median, n=252, seeds 0..19999"
+pe_missing_months,2011-08;2014-08;2016-10;2018-03;2020-11,calendar months with no rebalance row
+pe_thin_months,2015-02:56;2019-03:30,months with <100 rows (dropped)
+vr_missing_months,2011-08;2014-08;2016-10;2018-03;2020-11,calendar months with no rebalance row
+vr_thin_months,2015-02:56;2019-03:30,months with <100 rows (dropped)
+pe_full_dropped_after_na,2015-02-28:56;2019-03-29:30;2025-03-28:5;2025-04-30:5;2025-05-30:5,M7 full-sample months dropped after NaN filter
+c_missing_months,2011-08;2014-08;2016-10;2018-03;2019-03;2020-11,"Test C months absent, 2010-06..2021-12"
+tie_sub95_price_lt10,0.7311827956989247,share of PE<0.95 subset stock-months with window median price < 10 rupees
+tie_sub95_price_med,3.549999952316284,"median window price, PE<0.95 subset"
+tie_rand_price_med,128.4499969482422,"median window price, random subset"

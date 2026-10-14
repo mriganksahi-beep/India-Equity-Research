@@ -1,0 +1,7 @@
+step,rows,tickers,dates,note
+0. raw panel loaded,3328132,1069,4237,
+1. flag == 1 (PIT universe -> cards),1973146,1069,4059,
+2. cards built (features + target computed),1881417,1041,3905,pre-NaN-filter
+3. drop cards with any NaN feature,1815739,1041,3825,"-65,678"
+4. drop cards with NaN target,1813757,1041,3823,"-1,982"
+5. drop dates with < 30 names,1813407,1041,3756,"-350 rows, 67 dates"

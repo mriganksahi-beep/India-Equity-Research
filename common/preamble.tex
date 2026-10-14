@@ -1,0 +1,60 @@
+% Shared preamble for the NSE working-paper series (Mrigank Sahi).
+% Usage in each paper: \input{../common/preamble.tex}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\sisetup{group-separator={,},round-mode=places,round-precision=3}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=*}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+\newcommand{\ghbase}{https://github.com/mriganksahi-beep}
+\newcommand{\authorline}{Mrigank Sahi\\\small Independent Researcher, New Delhi\\\small\texttt{mriganksahi@gmail.com}}
+
+% Standard disclosure box. Every paper fills all five fields.
+% #1 sample/period status, #2 position in test tally, #3 costs,
+% #4 point-in-time limits, #5 anything else the reader must know
+\newcommand{\caveatsbox}[5]{%
+\begin{mdframed}[backgroundcolor=gray!8,linecolor=gray!50,innertopmargin=6pt,innerbottommargin=6pt]
+\small\textbf{Read before interpreting results.}
+\begin{itemize}
+\item \textbf{Sample.} #1
+\item \textbf{Multiple testing.} #2
+\item \textbf{Costs.} #3
+\item \textbf{Point-in-time universe.} #4
+\item \textbf{Other.} #5
+\end{itemize}
+\end{mdframed}}
+
+% Standard AI-assistance statement (identical across the series).
+\newcommand{\aistatement}{%
+\paragraph{Use of AI tools.} Code for this project was written with the assistance of
+an AI coding assistant (Anthropic's Claude), working to specifications set by the
+author, and the manuscript was drafted with the same assistance. The author designed
+the research questions and decision rules and ran the main analyses. Some diagnostics
+added during revision were computed by the assistant from archived run outputs; these
+are labelled as revision diagnostics in the text. The author reviewed all code and
+text and takes full responsibility for the content.}
+
+% Standard data/code availability statement.
+\newcommand{\availability}[1]{%
+\paragraph{Data and code availability.} Code: \url{#1}. The point-in-time panel
+construction is documented in \url{\ghbase/indian-equity-research/tree/main/data_pipeline}.
+Price data from Yahoo Finance and index-membership snapshots from a licensed vendor
+are not redistributed; the repository contains the scripts to rebuild the panel.}
+
+% Placeholder for anything awaiting the author's confirmation. Renders red so it
+% cannot survive into a posted PDF unnoticed.
+\newcommand{\verify}[1]{\textcolor{red}{\textbf{[VERIFY: #1]}}}

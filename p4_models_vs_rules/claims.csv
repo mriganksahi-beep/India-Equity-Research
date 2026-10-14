@@ -1,0 +1,67 @@
+claim_id,text_snippet,value,source_file,location_in_source
+c01,V1 cards,"1,813,407",sources/moonshot_ml_sandbox_v1_builder (1).ipynb,"Cell 10/12 output, validation block 1 (also sources/ml_sandbox_v1_buildlog_2026-09-07.csv step 5)"
+c02,V1 tickers / dates,"1,041 / 3,756",sources/moonshot_ml_sandbox_v1_builder (1).ipynb,Validation block 1
+c03,V1 date range,2011-01-03 to 2026-06-10,sources/moonshot_ml_sandbox_v1_builder (1).ipynb,Validation block 1
+c04,panel tickers/dates,"1,069 / 4,237",sources/moonshot_ml_sandbox_v1_builder (1).ipynb,Cell 6 output step 0
+c05,drop NaN feature / NaN target / thin dates,"-65,678 / -1,982 / -350 rows, 67 dates",sources/ml_sandbox_v1_buildlog_2026-09-07.csv,steps 3-5
+c06,feature windows (mom t-252..t-22; rev 21 rows before t; ovn 21 rows before t; rv60 at t; log turnover at t),code,sources/moonshot_ml_sandbox_v1_builder (1).ipynb,Cell 4 config + Cell 8 build_cards_for_ticker
+c07,"target open t+1 -> open t+21, absolute",code,sources/moonshot_ml_sandbox_v1_builder (1).ipynb,"Cell 0 spec table, Cell 8"
+c08,leakage sample card and spot-check diffs 0.0,JKIL.NS 2018-05-17; diff 0.00e+00,sources/moonshot_ml_sandbox_v1_builder (1).ipynb,Validation blocks 2 and 3
+c09,"V1 hole 2025-03-17 to 2025-06-17, 62 trading days",62,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 12 output (also sources/moonshot_ml_sandbox_phase3_record.md s4)
+c10,realized_vol_60 missing inside hole / before,97.4% / 0.3%,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 12 output B
+c11,"141 invested months, sat out Apr-Jun 2025",141,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 14 output
+c12,build log: no hold-out spent,text,sources/moonshot_ml_sandbox_build_log.md,Project purpose paragraph
+c13,max within-date |corr| reversal-overnight,+0.217,sources/moonshot_ml_sandbox_v1_visualization (1).ipynb,Summary cell [S3]
+c14,momentum vs realized vol corr,+0.016,sources/moonshot_ml_sandbox_v1_visualization (1).ipynb,Summary cell [S3]
+c15,PCA variance shares calm day 2017-07-04 (illustration only),28.4/22.6/19.4/17.9/11.6%,sources/moonshot_ml_sandbox_v1_visualization (1).ipynb,Cell 16 output / [S4]
+c16,numpy vs sklearn PCA diff,1.11e-16,sources/moonshot_ml_sandbox_v1_visualization (1).ipynb,Cell 16 output
+c17,PC1+PC2 other days,"52%,59%,58% (2025-08-05, 2020-03-24, 2020-07-09)",sources/moonshot_ml_sandbox_v1_visualization (1).ipynb,Summary [S4] across four days
+c19,event definitions and base rates,0.5006/0.2009/0.1993/0.2009,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,Cell 0 markdown; Cell 6 output
+c20,GD vs sklearn max diff,8.5e-05,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,Cell 10 output
+c21,"12 folds, train 3y, test 1y, 21-day purge, test 2014-2025",12,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,Cell 4 make_folds; Cell 8 output
+c22,"last training card sell day before test year, all folds",pass,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 18 output audit 1
+c23,pre-registered rules 1-4 and suspicion rule,text,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,Cell 0 markdown
+c24,scorecard skill/AUC/CI/gain/halves/rules (Table 1),see Table 1,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,"Cell 24 output [scorecard], [halves]; Cell 16 output for M2 AUC"
+c25,skill ratio ~50x (0.1292/0.0027),47.9,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,derived from [scorecard]
+c26,suspicion check best AUC 0.537/0.540/0.598,,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,Cell 16 output SUSPICION CHECK
+c27,calibration max gaps (high vol M1 0.0501; others <=0.0359),,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,Cell 24 output [calibration]
+c28,skill by test year (Figure 1),48 values,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,Cell 24 output [skill by test year]; figures/fig1_skill_by_year_values.csv
+c29,M1 odds ratios median and folds>1 (Table 2),see Table 2,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,Cell 24 output [M1 odds ratios]
+c30,"M0 tripwires (intercept, log-loss within 0.005, AUC 0.500)",pass,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,Cell 14 output
+c31,Phase 3a performance table (CAGR/vol/Sharpe/MaxDD/turnover),see Table 3,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 31 output [performance]
+c32,"Phase 3a active return, CIs, halves, vol/Sharpe diff CIs, verdicts",see text,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 23 and Cell 31 output [vs baseline]
+c33,98.75% CIs Phase 3a,see text/Fig 2,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 29 output item 4
+c34,held-stock z-score tilts (Table 4),see Table 4,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 29 output item 1
+c35,86.2% (min 73.7%) common exclusions,86.2%,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 29 output item 2
+c36,rank corr p_crash-p_highvol 0.93,0.93,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 29 output item 3
+c37,excluded fifth vol z ~ +1.45,+1.45,sources/moonshot_ml_sandbox_phase3_record.md,s6.2 bullet (derived: -4 x held value)
+c38,"coverage 68,670 usable; median 490 (min 410)","68,670",sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 16 output
+c39,refit 2019 crash max diff 0.0,0.00e+00,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 18 output audit 2
+c40,63MOONS.NS universe example,2017-01-02,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 18 output audit 3
+c41,3 forward returns exact,3 of 3,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 18 output audit 4
+c42,"23 data-ends stock-months 0.033%, median +3.0%",23,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 20 output
+c43,"holding overlap mean 0.29 (max 3), uncovered 0.88 (max 3)",,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 14 output
+c44,twin definitions and pre-committed 3b rule; hindsight caveat,text,sources/moonshot_ml_sandbox_phase3b_model_vs_twin.ipynb,Cell 0 markdown
+c45,3b performance incl. twins and assumed cost line,see Table 3,sources/moonshot_ml_sandbox_phase3b_model_vs_twin.ipynb,Cell 22 output
+c46,model minus twin Sharpe diffs and CIs (95%/98.33%),see text/Fig 2,sources/moonshot_ml_sandbox_phase3b_model_vs_twin.ipynb,Cell 26 output; figures/fig2_sharpe_diff_values.csv
+c47,"model minus twin active returns, halves, turnover",-3.01% etc,sources/moonshot_ml_sandbox_phase3b_model_vs_twin.ipynb,Cell 22 output
+c48,holding overlap model vs twin 95.8/96.9/74.3/48.2%,,sources/moonshot_ml_sandbox_phase3b_model_vs_twin.ipynb,Cell 20 output
+c49,twins vs baseline Sharpe-diff CIs,,sources/moonshot_ml_sandbox_phase3b_model_vs_twin.ipynb,Cell 22 output last block
+c50,relative wealth pick outperformers ~0.72x,0.72,sources/moonshot_ml_sandbox_phase3_record.md,s6.3 relative wealth
+c51,expectations vs outcome,text,sources/moonshot_ml_sandbox_phase3_record.md,s6.4
+c52,assumed cost 1.7%/yr ~ half of active return,1.7%,sources/moonshot_ml_sandbox_phase3_record.md,s8 caveats
+c53,Phase 3b reproduces 3a CAGR/Sharpe,pass,sources/moonshot_ml_sandbox_phase3b_model_vs_twin.ipynb,Cell 18 output
+c54,linear regression: mean over folds of per-date rank IC +0.0540 (65% days positive); mean per-fold R2 -0.0421 -> +0.0003 residualized; IC unchanged per fold; date-mean share 28.6% of pooled target variance,,sources/moonshot_ml_sandbox_v1_regression.ipynb; sources/moonshot_ml_sandbox_v2_residualized.ipynb,"v1_regression summary cell [per-fold scores],[pooled]; v2_residualized Cell 5 variance decomposition and Cell 9 per-fold tables (verified round 2)"
+c55,no untouched holdout; dev-period evidence,text,sources/moonshot_ml_sandbox_phase3_record.md,s8 caveats
+c56,bootstrap Phase 2: calendar-month resampling B=1000,code,sources/moonshot_ml_sandbox_phase2_logistic.ipynb,Cell 4 block_bootstrap
+c57,"bootstrap Phase 3: paired moving-block 6m, B=2000",code,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,Cell 6 paired_bootstrap
+c59,2018-06-30 truncated snapshot ~22%,22%,../common/FACTS.md,Panel section
+c60,15 pre-registered verdicts,8+4+3,sources/moonshot_ml_sandbox_phase2_logistic.ipynb; sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb; sources/moonshot_ml_sandbox_phase3b_model_vs_twin.ipynb,count of rules in Cell 0 markdowns
+c61,approx AUC of ranking by current realized vol for high-vol event (equal decile shares; +-20% perturbation),0.757 (0.745-0.770),sources/moonshot_ml_sandbox_conditional_probability.ipynb,summary block 'Realized vol V' decile rates; computed in revision (CHANGELOG)
+c62,"high-vol event rate by current-vol decile 0.037 -> 0.537; sample 2012-01-07 to 2026-06-10, trailing-252 deciles",0.037/0.537,sources/moonshot_ml_sandbox_conditional_probability.ipynb,summary [full-sample P(event|decile)]; Cell 8 output
+c63,top volatility-quintile month-to-month persistence 0.426 vs 0.20,0.4259,sources/moonshot_ml_sandbox_step2_record.md,s2 transition matrix
+c64,"Sharpe = mean/std(ddof=1)*sqrt(12), no rf; turnover one-way 0.5*sum|dw|; cost line turnover*2*12*0.002",formulas,sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb; sources/moonshot_ml_sandbox_phase3b_model_vs_twin.ipynb,3a Cell 6 perf()/turnover(); 3b Cell 22 COST_PER_SIDE
+c65,bootstrap seeds: Phase 2 seed 0 B=1000; Phase 3 paired_bootstrap seed 0 B=2000 block 6,seeds,sources/moonshot_ml_sandbox_phase2_logistic.ipynb; sources/moonshot_ml_sandbox_phase3a_portfolios_v2.ipynb,block_bootstrap(seed=0); paired_bootstrap(seed=0)
+c66,"run dates Phase 2 2026-09-30, 3a 2026-10-04, 3b 2026-10-05",dates,Drive metadata; sources/moonshot_ml_sandbox_phase3_record.md,createdTime of phase2 notebook; record header 'Dates run'
+c67,"test cards Phase 2 1,411,188 (high vol 1,411,156)","1,411,188",sources/moonshot_ml_sandbox_phase2_logistic.ipynb,"Cell 12 output, sum of fold test counts"
+c68,linear regression R2 = 1-SSres/SStot per fold; IC on dates with >=30 names,definition,sources/moonshot_ml_sandbox_v1_regression.ipynb,Cell 15 score_fold

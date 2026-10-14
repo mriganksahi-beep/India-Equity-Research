@@ -1,0 +1,84 @@
+claim_id,text_snippet,value,source_file,location_in_source
+C01,Panel rows,"3,328,132",momentum_phaseA_summary_2026-07-24.txt,[1] RUN HEADER panel_rows
+C02,Trading dates,"4,237",momentum_phaseA_summary_2026-07-24.txt,[1] panel_dates
+C03,Tickers,"1,069",momentum_phaseA_summary_2026-07-24.txt,[1] panel_tickers
+C04,Panel date range,2010-01-04 to 2026-07-10,momentum_phaseA_summary_2026-07-24.txt,[1] panel_date_range
+C05,Bloomberg tickers,114,../common/FACTS.md,Panel bullet 2 [log]
+C06,Semi-annual snapshots,33,PIT_features_build_log.md,Stage 4 para 1
+C07,"Signal window 232 rows [t-252,t-21]",232,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B0 parameters / Cell B1 momentum_signal
+C08,Vendor-failure date,2025-03-18,momentum_phaseA_summary_2026-07-24.txt,[2] check ledger
+C09,Skipped months <100 names,19 (12 in 2010 + 7),moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B1 output skipped list
+C10,Eligible names per month avg by year,411-492 (2024 lowest),moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B1 output Eligible names per year
+C11,"Corp-action screen 8 tickers, absent from Phase B",8,moonshot_test1_momentum_liquid_universe.ipynb,Cell 0 CORP_ACTION_SCREEN; Phase B code has no screen
+C12,Block bootstrap params baseline,"circular, 12-month, 10,000, seed 20260724, 2.5/97.5 pct",moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B0 params; Cell B4 code
+C13,Block bootstrap params liquidity,"moving-block non-circular 12m, 10,000, seed 20260724",moonshot_test1_momentum_liquid_universe.ipynb,Cell 0 block_bootstrap_ci
+C14,Leakage global violations,"0 of 133,281",momentum_phaseA_summary_2026-07-24.txt,[2] GLOBAL check
+C15,Min calendar gap window end to rebalance,28 days,momentum_phaseA_summary_2026-07-24.txt,[4] GLOBAL calendar gap
+C16,Spot-checks diff 0 GIPCL/MOTHERSON/JISLJALEQS,0.000e+00,momentum_phaseA_summary_2026-07-24.txt,[4] table
+C17,RANBAXY out-window 0/8; HDFC 0/9,0/8; 0/9,momentum_phaseA_summary_2026-07-24.txt,[5] named checks
+C18,Eligible universe std,139.6,momentum_phaseA_summary_2026-07-24.txt,[5] Eligible universe variation
+C19,True terminations,"37 (0.0434%); D1=6, D10=3",momentum_phaseA_summary_2026-07-24.txt,[6]
+C20,M4 planted interaction recovered,+0.8 -> 0.801,M4_findings_2026-07-31.md,validation_summary detection power
+C22,Baseline months / first-last,179; 2011-01-31 to 2026-06-30,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell 15 review summary [1]
+C23,Mean spread and CI,"1.740 [0.769, 2.705] %/mo",moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B4 output; momentum_findings_2026-07-27.md result
+C24,Sharpe and CI,"0.847 [0.335, 1.503]",moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B4 output
+C25,Ann return / vol,19.14% / 24.66%,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B4 output
+C26,Hit rate,64.8%,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B4 output
+C27,Mean IC and CI,"0.0605 [0.0350, 0.0865]",moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B9 output
+C28,IC IR; positive IC months,0.347; 66.5%,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B9 output
+C29,Monotonic steps,7/9,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B2 output
+C30,Decile means D1..D10,0.219 ... 1.959 %/mo,decile_monthly_returns_2026-07-27.csv,column means (reproduced in make_figures.py); matches Cell B2 output
+C31,End steps sum,1.05 of 1.74 pp,decile_monthly_returns_2026-07-27.csv,"(D2-D1)+(D10-D9)=0.653+0.397, computed"
+C32,Worst month,-37.34% (2020-05),moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B3 / B6 output
+C33,2020 window max drawdown,-46.69%,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B6 output
+C34,Yearly spread 2020/2024/2026,-1.782 / -0.112 / -0.147 %/mo,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B5 output
+C35,Tercile spreads,1.966/2.127/1.032 %/mo,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B7 output
+C36,Tercile Sharpes,0.882/0.950/0.422,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell 15 [5]
+C37,2018 H2 vs rest; z,0.462 vs 1.784; 0.45,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B8 output
+C38,Bootstrap CI reproduced from CSV,"0.335,1.503",long_short_spread_2026-07-27.csv,make_figures.py assertion
+C39,Liquidity sweep turnover Sharpe/CI/mono,see Table 2,liquid_universe_sweep_2026-08-05.csv,all rows
+C40,Liquidity sweep Amihud Sharpe/CI/mono,see Table 2,liquid_universe_sweep_AMIHUD_2026-08-05.csv,all rows
+C41,Retention ratios,52/67/94 (T); 52/68/82 (A),liquid_universe_sweep*.csv,computed in make_figures.py as sharpe/full sharpe
+C42,Turnover vs Amihud within 0.09,0.088 max diff,liquid_universe_findings_2026-08-05.md,robustness_turnover_vs_amihud
+C43,Pre-registered screen CI low >0.30 & mono>0.5; none clears,0.30,moonshot_test1_momentum_liquid_universe.ipynb,Cell 0 DEPLOY_SHARPE_LB; Cell 3 output 'does NOT clear' x4
+C44,Median names 143/238/332/475,,liquid_universe_sweep_2026-08-05.csv,median_univ
+C45,Spread %/mo by floor,0.96/1.09/1.44/1.54; 0.90/1.11/1.25/1.54,liquid_universe_sweep*.csv,spread_pct
+C46,"Batch tally 29; M1 9, M3 5, M4 4, M5 6, M6 4, M7 1",29,M7_findings_2026-08-04.md,running_tally
+C47,Liquidity test outside tally,n/a,liquid_universe_findings_2026-08-05.md,running_tally
+C48,Provisional DSR at 6 and 14 trials,,M1_findings_2026-07-30.md; M3_findings_2026-07-30.md,significance_provisional
+C49,Six-mechanism batch,six,moonshot_test1_momentum_M1_tax (2).ipynb,Cell 13 'After running'
+C50,M1 quarterly 99.9% of 0.910; dAfterTax +0.02,,M1_findings_2026-07-30.md,result cadence table
+C51,M1 semiannual 69.8%; -0.54,,M1_findings_2026-07-30.md,result cadence table
+C52,M1 bands 77.8-89.7%,,M1_findings_2026-07-30.md,result banding
+C53,M1 91% short-term at quarterly,91%,M1_findings_2026-07-30.md,result text
+C54,"M1 tax model 20%/12.5%, Rs 1 crore, FIFO, long only",,M1_findings_2026-07-30.md,tax_model
+C55,M1b signal_prop 0.898 vs equal 0.767,,moonshot_test1_momentum_M1_tax (2).ipynb,M1b RESULTS output
+C56,M1 harness 186 months 0.910; split 0.927/0.990 (131/55),,moonshot_test1_momentum_M1_tax (2).ipynb,HOLD-OUT CONFIRMATION output
+C57,M3 terciles plain 0.822/0.940/0.546; V1 0.955/0.962/0.374; gaps 0.277/0.581/0.360,,M3_findings_2026-07-30.md,result tercile table
+C58,M3 FM 104%; interaction t=1.75,,M3_findings_2026-07-30.md,collinearity_check
+C59,"M3 plain 0.859, V2 0.619, V3 0.899",,M3_findings_2026-07-30.md,result headline
+C60,M4 interaction 0.00107 t=1.91; vol-std 2.04; sign 0.54; N63 0.80; terciles max 1.39,,M4_findings_2026-07-31.md,result; tercile_split
+C61,M4 turnover 29.8 -> 56.1%,,M4_findings_2026-07-31.md,turnover
+C62,"M5 high52 -0.021 [-0.64,0.65]",,moonshot_test1_momentum_M5_lifecycle.ipynb,Cell 8 output
+C63,"M5 golden +0.401 t=1.68 CI [+0.08,+0.71]",,moonshot_test1_momentum_M5_lifecycle.ipynb,Cell 8 output
+C64,M5 crash freq<-10%: 8.4 vs 1.7 (high52); 2.6 vs 3.8; 3.2 vs 3.2,,moonshot_test1_momentum_M5_lifecycle.ipynb,crash leg output
+C65,M6 0/4 curves; Amihud 0.0017->0.0091; turnover 0.0113->0.0011,,M6_findings_2026-08-03.md,result
+C66,M6 mid tercile 0.95,0.95,M6_findings_2026-08-03.md,hypothesis
+C67,"M7 t=-0.29, -0.12; PE 0.95-1.0; stability 0.44; floor 0.6",,M7_findings_2026-08-04.md,result; structural_finding
+C68,Coverage 62.65; 26.07/5.97/5.31; +3.66pp,,momentum_phaseA_summary_2026-07-24.txt,[3]
+C69,2024 strict drop 18.3%; other years 3.9-17.9%,,momentum_phaseA_summary_2026-07-24.txt,[3] drop rate table
+C70,Liquidity full-universe harness 0.755 1.537,,moonshot_test1_momentum_liquid_universe.ipynb,Cell 2 [4] output
+C71,2018 snapshot truncation ~22%,,../common/FACTS.md,Panel bullet 4 [log]
+C72,M1 n_train/n_holdout 131/55 (all calendar months),131/55,sources/m1_holdout_2026-07-30.csv,baseline row
+C73,179 vs 186 reconciliation: 7 extra = 7 skipped interior months,7,reconcile_months.py,script output
+C74,Phase B same split 124/55,124/55,sources/long_short_spread_2026-07-27.csv,computed in reconcile_months.py
+C75,2015-02-28 genuine Budget Saturday session,,../common/REVISION_DIRECTIVES.md,Lead-editor rulings
+C76,5 of 7 skipped months coincide with exchange holidays,5,../common/REVISION_DIRECTIVES.md,Closed-date defect ruling
+C77,MI paper momentum IC 0.085 (2010-2021) / 0.084 (2011-2021),0.085/0.084,coordinator round-2 message; sahi_mi,coordinator note
+C78,"M5 t is iid (mean/se), not Newey-West",1.68,moonshot_test1_momentum_M5_lifecycle.ipynb,Cell 8 code t_sp
+C79,M1 weights renormalised over names with a return,,moonshot_test1_momentum_M1_tax (2).ipynb,simulate(): leg_month tot/wsum
+C80,"M1 baseline Sharpe 0.910, spread 1.8387",0.910,sources/m1_results_table_2026-07-30.csv,baseline row
+C81,Tax rates 20%/12.5% in force since July 2024,,M1_findings_2026-07-30.md (rates); dating is author knowledge,tax_model; regime date not in sources
+C82,Ties: rank(method='first'); decile ceil(10*rank/N),,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B1
+C83,Sharpe sqrt(12) annualisation,,moonshot_test1_momentum_phaseB_baseline.ipynb,Cell B4 ann_sharpe
+C84,Reproduction software versions,Py3.13/NumPy 2.5.3/pandas 3.0.5/mpl 3.11.2,local environment,python -c version print

@@ -1,0 +1,83 @@
+claim_id,text_snippet,value,source_file,location_in_source
+pe_m,permutation entropy order,"m=4, tau=1 (m=3 robustness)",sources/M7_findings_2026-08-04.md,"data_and_universe; M7N cell 0 PE_M,PE_TAU"
+pe_verif,known-case checks,"trend ~0, white noise ~0.98, periodic ~0.43 at 250 obs",sources/M7_findings_2026-08-04.md,estimator_verification
+boot_naive,naive vs block bootstrap stability on smooth gradient,~0 vs ~0.89,sources/M7_findings_2026-08-04.md,estimator_verification
+m7_unc,"M7 uncontrolled coef, t","-0.00012, NW t=-0.29",sources/M7_findings_2026-08-04.md,result STEP 1; reproduced derived_stats m7_full_unc_*
+m7_dgw,"M7 +DGW coef, t","-0.00005, t=-0.12",sources/M7_findings_2026-08-04.md,result STEP 1; reproduced derived_stats m7_full_dgw_*
+m7_months,M7 FM months,176,derived_stats.csv,m7_full_unc_months
+m7_sample,M7 rebalance span,2011-01-31 to 2026-06-30 (181 months),derived_stats.csv,m7_panel_first_rb/last_rb/months; M7N cell1 REBAL=MONTH_ENDS[:-1]
+m7_rows,entropy panel,"84,144 stock-months, 1014 tickers",sources/M7_findings_2026-08-04.md,data_and_universe
+m7_rule,gate 1 pass rule,|t_c|>2 and same sign,sources/moonshot_test1_momentum_M7_entropy.ipynb,cell 3 step1_pass
+m7_dev,M7 dev-only re-estimate,+0.00039 t=0.88; +0.00048 t=1.09; 125 months,derived_stats.csv,m7_dev_*
+m7_ci,M7 95% NW intervals,see table 2,derived_stats.csv,m7_*_nwci_*
+cbb,CBB vs NW intervals within 0.0002,max diff 0.00017,derived_stats.csv,*_cbb_* vs *_nwci_*
+stab,rank stability,"0.440 (min 0.411 max 0.477), 12 months",sources/M7_findings_2026-08-04.md,structural_finding; M7N cell 2 output
+stab_dev,dev-only stability mean,0.444 (9 months),derived_stats.csv,m7_stab_dev_mean
+stab_param,"block len, resamples","20 days, 50 resamples",sources/moonshot_test1_momentum_M7_entropy.ipynb,cell 0 BLOCK_LEN; cell 2 range(50)
+pe34,PE3 vs PE4 corr,0.770,sources/M7_findings_2026-08-04.md,validation_summary
+sampen_grid,SampEn grid corr with PE,"0.057..0.107 (findings file reports 0.06-0.11), 2018-04-30, n=491",sources/moonshot_test1_momentum_M7_entropy.ipynb,cell 2 output
+band,PE band from spot check,"0.950-0.996 (0.046), RELIGARE, BSE",sources/M7_findings_2026-08-04.md,structural_finding; M7N cell 2 output spot month = stab_months[6]=2018-07-31
+pe_q,PE dev quantiles,0.966 / 0.986 / 0.995; min 0.805; 99.8% >=0.95,derived_stats.csv,pe_dev_q01/q50/q99/min/share_ge095
+pe_null,iid null PE,"mean 0.986, sd 0.0053, 20000 draws, n=232",derived_stats.csv,pe_null_mean/sd
+pe_inside,share inside central 99% null,98.5%,derived_stats.csv,pe_dev_share_inside_null99
+pe_xs,PE within-month cs sd,0.0065,derived_stats.csv,pe_dev_xs_sd
+pe_noise,noise share PE,~65% (0.648),derived_stats.csv,pe_noise_share
+sampen,SampEn medians,1.88 observed vs 2.20 null,derived_stats.csv,"sampen_dev_median, sampen_null_median"
+dev_rows,dev slice,"59,184 stock-months, 865 tickers",sources/D_gate_findings_2026-08-08.md,data_and_universe; DS pe_dev_rows
+window,formation window rows,"232 rows [t-252,t-21], >=200 valid",sources/moonshot_batch2_D_gate.ipynb,cell 0 WINDOW_ROWS; formation_returns len>=200
+vr_def,"VR definition, q","overlapping Lo-MacKinlay, q=21, robust 10,42",sources/D_gate_findings_2026-08-08.md,data_and_universe; DN cell 0
+wavelet,planned wavelet,"MODWT Daubechies LA8, only if all gates pass",sources/moonshot_batch2_D_gate.ipynb,markdown cell 1 and final cell
+d_unc,D uncontrolled,-0.00059 NW t=-0.41,sources/D_gate_findings_2026-08-08.md,result GATE 1; reproduced derived_stats d_unc_*
+d_res,D controlled,-0.00028 NW t=-0.23,sources/D_gate_findings_2026-08-08.md,result GATE 1; reproduced derived_stats d_res_*
+d_rule,D gate rules,g1 |t|>2 same sign; g2 p10-p90>0.30; g3 stability>0.6,sources/moonshot_batch2_D_gate.ipynb,"cell 2 g1,g2,g3"
+d_months,D months,125 (127 in panel),derived_stats.csv,d_unc_months; d_panel_*
+d_ci,D 95% intervals,"[-0.0034,0.0022], [-0.0027,0.0021]",derived_stats.csv,d_*_nwci_*
+nw,NW lag,"6, Bartlett",sources/moonshot_batch2_D_gate.ipynb,cell 0 newey_west_tstat(lag=6)
+vr_med,VR median observed / null,0.950 / 0.958,derived_stats.csv,"vr_median, vr_null_median"
+vr_null,VR null mean sd,1.00 / 0.35,derived_stats.csv,"vr_null_mean, vr_null_sd"
+vr_xs,VR within-month sd,0.47,derived_stats.csv,vr_xs_sd
+vr_noise,VR noise share,~53%,derived_stats.csv,vr_noise_share
+p1090,"p10-p90 of N(0,0.30)",0.77 = 2*1.2816*0.30,derived_stats.csv,"arithmetic, not in file"
+tally_m7,M7 tally position,29,sources/M7_findings_2026-08-04.md,running_tally; M7N cell 3 output [tally: 29]
+tally_c,C tally,"gate 30, diagnostics 31",sources/C_gate_findings_2026-08-08.md,running_tally
+tally_d,D tally,32,sources/D_gate_findings_2026-08-08.md,running_tally
+c_rule,C gate rule,"<=0.20 proceed, >=0.40 shelve, between surface; pre-stated",sources/moonshot_batch2_C_gate.ipynb,cell 0 markdown/code
+c_corrs,C correlations,"0.088, 0.303, 0.046, -0.081; 133 months 2010-06..2021-12",sources/C_gate_findings_2026-08-08.md,result GATE; verified sources/c_gate_monthly_correlations_2026-08-08.csv
+c_ci,C 95% intervals,see table 3,derived_stats.csv,c_*_cbb_*
+c_core,liquid core,top 50% trailing-21d turnover,sources/C_gate_findings_2026-08-08.md,data_and_universe
+c_d1,D1 profile,"0.36..0.65, Spearman +1.000",sources/C_gate_findings_2026-08-08.md,DIAGNOSTIC 1; sources/c_gate_D1_shape_2026-08-08.csv
+c_d2,D2,"partial 0.242 vs raw 0.303, 20% collapse, 132 months",sources/C_gate_findings_2026-08-08.md,DIAGNOSTIC 2; sources/c_gate_D2_partial_2026-08-08.csv; DS c_d2_*
+c_price,size proxy,Close price,sources/moonshot_batch2_C_gate.ipynb,diagnostics cell PRICE_COL
+c_2015,2015-02 cross-section,56 names; mean ~481,derived_stats.csv,"c_min_nfull, c_min_nfull_month; monthly csv n_full mean"
+corp,corp-action tickers screened,8,sources/moonshot_batch2_D_gate.ipynb,cell 0 CORP_ACTION_SCREEN
+panel,panel dims,"1,069 tickers, 2010-01-04 to 2026-07-10",../common/FACTS.md,Panel section; also PL Stage 6
+snap2018,2018 truncated snapshot,~22% misclassified Jul-Dec 2018,../common/FACTS.md,Panel section
+rv,realized_vol_60 def,rolling std full window ddof=1 x sqrt(252),sources/PIT_features_build_log.md,Stage 5b
+amihud,Amihud def,"monthly mean |r|/turnover, >=15 valid days",sources/PIT_features_build_log.md,Stage 5c
+stale,stale-price family not filtered,"KSK, KENNAMET, VIVIDHA; no consecutive-identical-close rule",sources/PIT_features_build_log.md,Not built
+jan22,last fwd return into 2022,rebalance 2021-12-31 fwd rows t+1..t+21,sources/moonshot_batch2_D_gate.ipynb,"cell 1 REBAL<=TRAIN_END, fwd_return"
+vr_verif,"VR verification (pre-build, source)",1.87/0.40/1.03 at N=1000; source also reported RW mean 0.95 sd 0.30 at 252 over 200 seeds and 'unbiased' (claim withdrawn),sources/D_gate_findings_2026-08-08.md,estimator_verification
+stab_months,stability months in 2022+,"2022-04-29, 2023-07-31, 2024-10-31",sources/moonshot_test1_momentum_M7_entropy.ipynb,cell 2 output
+skip_months,months absent 2011-2021,2011-08;2014-08;2016-10;2018-03;2020-11,revision_stats.csv,"pe_missing_months, vr_missing_months"
+thin_months,months <100 names,2015-02:56; 2019-03:30,revision_stats.csv,pe_thin_months
+m7_2025_drop,M7 full months dropped (vol60 NaN),"2025-03,04,05 (5 names each)",revision_stats.csv,pe_full_dropped_after_na
+d_strict,D strict (drop 2021-12-31),"124 months, 58,711 rows; unc -0.00066 t -0.46; gate -0.00034 t -0.28 [-0.0027,0.0021]",revision_stats.csv,d_strict_*
+tie_rebuild,rebuilt PE exact,"2,189 of 2,189 stock-months, 35 tickers",revision_stats.csv,tie_rebuild_rows/exact
+tie_low,low-tail ties,"15 tickers, 965 sm; 52% any tie; median zero share 3.0%",revision_stats.csv,tie_low_*
+tie_rand,random ties,"20 tickers, 1,235 sm; 15% any tie; median zero share 0.4%",revision_stats.csv,tie_rand_*
+tie_jit,random tie-break effect,median change 0; 4.3% of 93 sub-0.95 sm reach >=0.95; min 0.817,revision_stats.csv,"tie_*_jit_shift_med, tie_sub95_*"
+tie_cover,sub-0.95 coverage,"96 sm, 18 tickers; 97% covered by low-tail set",revision_stats.csv,dev_pe_lt095_*
+shree,SHREEASHTA 2013-07-31,PE 0.805 -> 0.817 (random ties) -> 0.681 (zeros dropped); 19.8% zero days; 25.8% tied windows; median price 2.25; 232 returns,revision_stats.csv,shree_*
+price,low-tail price profile,73% of sub-0.95 sm price<10; median 3.55 vs 128 random,revision_stats.csv,"tie_sub95_price_lt10/med, tie_rand_price_med"
+gbglobal,GBGLOBAL window median price,"~88,600 (suspected price-scale error)",revision_tie_detail.csv,median_price for GBGLOBAL.NS rows
+minz,most extreme PE z,-17.3,revision_stats.csv,pe_min_z
+m7_tail,M7 tail-robust gates,"drop<0.95: t -0.83 (full), +0.38 (dev); rank: -1.11 (full), +0.47 (dev)",revision_stats.csv,"m7_*_drop095_dgw_t, m7_*_rank_dgw_t"
+vrprobe,VR probe,"n=252 seeds0-199: 0.949/0.297; 20,000: 1.002/0.336; n=232 20,000: 1.003/0.351 median 0.954",revision_stats.csv,vrprobe_*
+prec,precision bounds,entropy up to ~0.13pp (dev CI upper 0.00134); VR ~0.3pp (CI lower -0.0034),derived_stats.csv,"m7_dev_dgw_nwci_hi, d_unc_nwci_lo"
+c_chron,C chronology,"gate cells exec ~06:15 UTC 2026-08-08 (counts 1-3); diagnostics cell Colab-added (id E0uxBwdjDmpw), count 4, 06:28:07 UTC; earlier Drive version (1E_HWjUGacKd72rJWUK_P_SL8SnlJFgCK) has no 'partial_corr' text",sources/moonshot_batch2_C_gate.ipynb,cell metadata executionInfo; Drive fullText search 2026-10-14
+c_missing,C months absent,2011-08;2014-08;2016-10;2018-03;2019-03;2020-11,revision_stats.csv,c_missing_months
+m7_runtime,M7 gate executed,2026-08-04 06:35 UTC,sources/moonshot_test1_momentum_M7_entropy.ipynb,cell metadata executionInfo
+d_runtime,D gate executed,2026-08-08 07:48 UTC,sources/moonshot_batch2_D_gate.ipynb,cell metadata executionInfo
+holdout_prior,2022+ split computed in M1/M3 before M7,"m1_holdout_2026-07-29.csv, m3_holdout_2026-07-30.csv (Drive)",Drive search 2026-10-14,"files 1_HAa0ZtDYXnaa9BTvYnPKaXMD12Szp9b, 10x6gp2lE1Q6yw6h-rWLJ-CXfYwJDBysd"
+versions,software versions,"Python 3.13.16, NumPy 2.5.3, pandas 3.0.5, SciPy 1.18.1, matplotlib 3.11.2, pyarrow 26.0.0",local environment,python -c import ...
+argsort,argsort tie order not stable for len-4,"checked all {0,1,2}^4 windows",local check,revision 2026-10-14

@@ -1,0 +1,9 @@
+label,pt,lo95,hi95,loB,hiB,level_B,panel
+Pick outperformers vs baseline,0.432,0.2092,0.7258,0.155,0.853,98.75%,model minus baseline
+Pick big winners vs baseline,-0.082,-0.2493,0.0687,-0.287,0.105,98.75%,model minus baseline
+Avoid crashes vs baseline,0.154,0.0849,0.258,0.068,0.285,98.75%,model minus baseline
+Avoid wild movers vs baseline,0.14,0.0747,0.2365,0.058,0.262,98.75%,model minus baseline
+Avoid crashes vs Twin: cut most volatile,0.025,0.003,0.06,-0.001,0.068,98.33%,model minus twin
+Avoid wild movers vs Twin: cut most volatile,0.011,-0.008,0.041,-0.013,0.048,98.33%,model minus twin
+Pick outperformers vs Twin: momentum - volatility,-0.119,-0.244,-0.04,-0.283,-0.019,98.33%,model minus twin
+Pick outperformers vs Ref: momentum only,0.122,-0.076,0.336,-0.11,0.386,98.33%,model minus twin

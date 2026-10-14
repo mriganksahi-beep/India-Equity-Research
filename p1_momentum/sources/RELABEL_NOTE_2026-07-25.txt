@@ -1,0 +1,7 @@
+forward_returns_detail column 'terminated' renamed to 'incomplete_month'.
+It means: position traded fewer days than the full market month (ordinary
+no-trade days), NOT a delisting. Count = 42,058, uniform across
+deciles, never used in any return computation.
+Added 'genuine_no_forward_return' (fwd_return is NaN): count = 9.
+Phase A stricter true-termination count = 37, evenly spread across deciles.
+Results (spread/Sharpe/IC/deciles) are UNCHANGED by this relabel.

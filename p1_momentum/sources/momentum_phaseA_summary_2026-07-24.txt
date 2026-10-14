@@ -1,0 +1,277 @@
+==============================================================================
+MOONSHOT_COMPOUNDING -- TEST 1 MOMENTUM -- PHASE A DIAGNOSTIC SUMMARY
+==============================================================================
+
+[1] RUN HEADER
+  run_timestamp     : 2026-07-24 14:08:17
+  panel_file        : feature_panel_with_pit_v2_2026-07-24.parquet
+  panel_mtime       : 2026-07-24 07:52:10
+  panel_rows        : 3,328,132   (v3: v2 minus 4,747 holiday rows)
+  panel_dates       : 4,237
+  panel_tickers     : 1,069
+  panel_date_range  : 2010-01-04 -> 2026-07-10
+  ticker_col        : ticker
+  date_col          : Date
+  rebalance_dates   : 199  (2010-01-29 -> 2026-07-10)
+  signal_spec       : lookback=252 skip=21 window_rows=232 strict_min=232
+  turnover_spec     : trailing mean over [t-21, t-1], min_valid=15
+
+[2] CHECK LEDGER (every assert run in A0-A6)
+  PASS=41  FAIL=1  INFO/SKIP=9
+
+  [PASS] project root directory exists  --  /content/drive/MyDrive/moonshot_compounding
+  [PASS] parquet files visible under project root  --  1592 files found
+  [PASS] exactly one ticker key column detected  --  candidates=['ticker']
+  [PASS] exactly one date key column detected  --  candidates=['Date']
+  [PASS] column present: daily_return
+  [PASS] column present: in_nifty500_flag
+  [PASS] column present: turnover
+  [PASS] column present: price_status
+  [PASS] column present: date_status
+  [PASS] row count matches v3 panel (3,328,132)  --  actual=3,328,132 expected=3,328,132
+  [PASS] distinct date count is 4,237  --  actual=4,237
+  [PASS] ticker count is 1,069  --  actual=1,069
+  [PASS] panel starts 2010-01-04  --  actual=2010-01-04
+  [PASS] panel ends 2026-07-10  --  actual=2026-07-10
+  [PASS] none of the six market-closed dates present in panel  --  present=[]
+  [PASS] exactly one vendor_failure date (2025-03-18)  --  ['2025-03-18']
+  [PASS] flag takes only values {0, 1} (plus NaN)  --  observed non-null values=[np.float64(0.0), np.float64(1.0)]
+  [PASS] flag counts sum to panel rows  --  NaN=85,464 one=1,973,146 zero=1,269,522
+  [PASS] NO NaN flag on/after 2010-06-30 (hard invariant)  --  violations=0
+  [INFO] pre-cutover NaN flag count  --  85,464
+  [PASS] no duplicate (ticker, date) rows  --  duplicates=0
+  [PASS] date column normalised to datetime64[ns]  --  was datetime64[ns], now datetime64[ns]
+  [PASS] np.datetime64(pd.Timestamp(x),'ns') round-trips to an equal value  --  probe=2019-09-19T00:00:00.000000000 roundtrip=2019-09-19T00:00:00.000000000
+  [PASS] rebalance count is in the expected 190-205 range  --  actual=199
+  [FAIL] no rebalance date falls on a weekend  --  weekend dates=['2015-02-28']
+  [INFO] rebalances >6d before month-end  --  1
+  [PASS] flag/turnover merge did not change row count  --  before=212,731 after=212,731
+  [INFO] strict coverage 2014  --  58.1%
+  [INFO] strict coverage 2025  --  78.2%
+  [PASS] leakage/GIPCL.NS@2011-12-30: window strictly before rebalance
+  [PASS] leakage/GIPCL.NS@2011-12-30: skip is exactly 21 rows
+  [PASS] leakage/GIPCL.NS@2011-12-30: window length 232
+  [PASS] spotcheck/GIPCL.NS@2011-12-30: manual == vectorised  --  diff=0.000e+00
+  [PASS] leakage/MOTHERSON.NS@2019-06-28: window strictly before rebalance
+  [PASS] leakage/MOTHERSON.NS@2019-06-28: skip is exactly 21 rows
+  [PASS] leakage/MOTHERSON.NS@2019-06-28: window length 232
+  [PASS] spotcheck/MOTHERSON.NS@2019-06-28: manual == vectorised  --  diff=0.000e+00
+  [PASS] leakage/JISLJALEQS.NS@2025-07-31: window strictly before rebalance
+  [PASS] leakage/JISLJALEQS.NS@2025-07-31: skip is exactly 21 rows
+  [PASS] leakage/JISLJALEQS.NS@2025-07-31: window length 232
+  [PASS] spotcheck/JISLJALEQS.NS@2025-07-31: manual == vectorised  --  diff=0.000e+00
+  [PASS] GLOBAL: no signal window ends on/after its rebalance date  --  violations=0 of 133,281
+  [PASS] GLOBAL: minimum calendar gap >= 21 days (skip window is real)  --  min_gap=28 days
+  [PASS] no unexpected flag values in signal frame  --  count=0
+  [INFO] eligible universe std  --  139.6
+  [PASS] recent flagged universe in 480-505 range  --  mean=499.9
+  [INFO] named check RANBAXY (expect IN during 2014, OUT by mid-2015)  --  in-window 10/12 IN; out-window 0/8 still IN
+  [INFO] named check HDFC (expect IN before 2023-07-12, OUT after merger)  --  in-window 12/12 IN; out-window 0/9 still IN
+  [INFO] 2018 H1/H2 terminations  --  H1=0 H2=2
+  [INFO] true terminations D1/D10/mid  --  D1=6 D10=3 D2-D9=28
+  [PASS] turnover window ends strictly BEFORE rebalance date (no leakage)  --  violations=0
+
+[3] SIGNAL COVERAGE -- strict(232) vs relaxed(186) diagnostic
+  OVERALL strict  : 62.65%
+  OVERALL relaxed : 66.32%
+  Relaxing 232->186 would add 7,796 ticker-months (+3.66pp)
+
+  year    ticker_mo    strict  strict%   relaxed   relax%    extra
+  2010       12,828         0     0.0%         0     0.0%        0
+  2011       12,828     7,102    55.4%     7,687    59.9%      585
+  2012       12,828     7,748    60.4%     8,695    67.8%      947
+  2013       12,828     8,205    64.0%     8,837    68.9%      632
+  2014       12,828     7,447    58.1%     8,118    63.3%      671
+  2015       12,828     7,624    59.4%     8,242    64.3%      618
+  2016       12,828     7,707    60.1%     8,214    64.0%      507
+  2017       12,828     8,903    69.4%     9,115    71.1%      212
+  2018       12,828     8,375    65.3%     8,566    66.8%      191
+  2019       12,828     8,453    65.9%     8,790    68.5%      337
+  2020       12,828     8,435    65.8%     8,730    68.1%      295
+  2021       12,828     9,473    73.8%     9,622    75.0%      149
+  2022       12,828     9,501    74.1%     9,896    77.1%      395
+  2023       12,828     9,711    75.7%    10,074    78.5%      363
+  2024       12,828     8,567    66.8%    10,091    78.7%    1,524
+  2025       12,828    10,029    78.2%    10,264    80.0%      235
+  2026        7,483     6,001    80.2%     6,136    82.0%      135
+
+  NaN attribution (why a signal is missing):
+    ok                                    133,281  (62.65%)
+    no_row_on_rebalance_date               55,454  (26.07%)
+    insufficient_history                   12,707  ( 5.97%)
+    insufficient_valid_returns             11,289  ( 5.31%)
+
+  Strict-filter drop rate among names WITH a full 232-row window:
+  year     avg_avail   avg_passed   avg_dropped   avg_drop%
+  2011         652.4        591.8          60.6       16.6%
+  2012         735.8        645.7          90.2       12.3%
+  2013         751.1        683.8          67.3        9.0%
+  2014         694.2        620.6          73.6       17.9%
+  2015         700.2        635.3          64.9        9.2%
+  2016         699.7        642.2          57.4       15.8%
+  2017         776.5        741.9          34.6        4.5%
+  2018         727.9        697.9          30.0       12.0%
+  2019         743.9        704.4          39.5        5.7%
+  2020         744.3        702.9          41.4       13.4%
+  2021         821.3        789.4          31.9        3.9%
+  2022         843.8        791.8          52.0        6.2%
+  2023         866.2        809.2          57.0        6.6%
+  2024         874.4        713.9         160.5       18.3%
+  2025         889.2        835.8          53.4        6.0%
+  2026         902.6        857.3          45.3        5.0%
+
+[4] LEAKAGE CHECK + MANUAL SPOT-CHECK
+  ticker           rebalance    win_start    win_end       rows  skip        manual        vector       diff   ok
+  GIPCL.NS         2011-12-30   2010-12-23   2011-11-30     232    21   -0.31261948   -0.31261948   0.00e+00  YES
+  MOTHERSON.NS     2019-06-28   2018-06-15   2019-05-29     232    21   -0.42715970   -0.42715970   0.00e+00  YES
+  JISLJALEQS.NS    2025-07-31   2024-07-29   2025-07-02     232    21   -0.27240810   -0.27240810   0.00e+00  YES
+
+  GLOBAL: signals with window_end >= rebalance_date : 0 (of 133,281) -- must be 0
+  GLOBAL calendar gap window_end->rebalance: min=28 p01=29 median=30 p99=35 max=37
+
+[5] PIT UNIVERSE CHECK (filter: in_nifty500_flag == 1)
+  Flag state distribution across all (ticker, rebalance) pairs:
+    in               93,394  (43.90%)
+    out              60,375  (28.38%)
+    unknown          58,962  (27.72%)
+
+  year    flagged(avg)   elig(avg)   elig(min)   elig(max)   retained%
+  2010           290.5         0.0           0           0        0.0%
+  2011           455.9       428.3           0         483       93.9%
+  2012           494.3       452.5         440         466       91.5%
+  2013           493.5       470.4         464         480       95.3%
+  2014           458.3       432.8           0         482       94.4%
+  2015           461.8       438.6          56         486       95.0%
+  2016           458.2       430.5           0         486       94.0%
+  2017           498.9       484.5         477         490       97.1%
+  2018           457.6       449.5           0         495       98.2%
+  2019           461.0       445.0          30         497       96.5%
+  2020           459.2       445.4           0         492       97.0%
+  2021           501.0       492.2         475         499       98.3%
+  2022           500.7       475.2         463         484       94.9%
+  2023           500.1       479.2         474         497       95.8%
+  2024           500.2       409.4         393         498       81.8%
+  2025           499.9       484.0         476         492       96.8%
+  2026           499.9       481.6         473         487       96.3%
+
+  Eligible universe variation: mean=428.1 std=139.6 (near-zero std would indicate the PIT filter is not being applied)
+
+  Named ground-truth checks (fact #18: semi-annual grid, ~6mo slack expected):
+    [INFO] named check RANBAXY (expect IN during 2014, OUT by mid-2015): in-window 10/12 IN; out-window 0/8 still IN
+    [INFO] named check HDFC (expect IN before 2023-07-12, OUT after merger): in-window 12/12 IN; out-window 0/9 still IN
+
+[6] TERMINATION DIAGNOSTIC  [DECIDES PHASE B EXIT TREATMENT]
+  Total incomplete forward months : 42,144
+  By classification:
+    masked_gap_resumes           41,885  ( 99.4%)
+    panel_edge                      222  (  0.5%)
+    true_termination                 37  (  0.1%)
+
+  TRUE TERMINATIONS: 37  (0.0434% of eligible ticker-months)
+
+  By year:
+  year     terminations   elig_tkr_mo      pct
+  2011                4         5,140   0.078%
+  2012                5         5,430   0.092%
+  2013                4         5,645   0.071%
+  2014                1         5,194   0.019%
+  2015                2         5,263   0.038%
+  2017                5         5,814   0.086%
+  2018                2         5,394   0.037%
+  2019                2         5,340   0.037%
+  2020                2         5,345   0.037%
+  2022                2         5,703   0.035%
+  2023                2         5,751   0.035%
+  2024                3         4,913   0.061%
+  2025                2         5,808   0.034%
+  2026                1         3,371   0.030%
+  2018 split: H1=0 H2=2
+
+  By provisional decile  [DECISIVE CROSS-TAB]:
+  decile     terminations     eligible      rate%
+  1                     6        8,446    0.0710%
+  2                     1        8,527    0.0117%
+  3                     3        8,499    0.0353%
+  4                     4        8,534    0.0469%
+  5                     3        8,538    0.0351%
+  6                     1        8,500    0.0118%
+  7                     6        8,511    0.0705%
+  8                     4        8,522    0.0469%
+  9                     6        8,504    0.0706%
+  10                    3        8,603    0.0349%
+  D1=6  D10=3  D2-D9 combined=28
+
+  Full per-termination detail CSV: /content/drive/MyDrive/moonshot_compounding/validation/momentum_termination_diagnostic_2026-07-24.csv
+
+[7] LIQUIDITY TERCILE CONSTRUCTION
+  Valid trailing turnover: 85,170 / 85,184 (99.98%)
+  Turnover-window leakage violations: 0 (must be 0)
+
+  Tercile boundaries by year (INR; divide by 1e7 for crores):
+  year        T1/T2 bound      T2/T3 bound        median T1        median T3
+  2011         10,069,857       86,051,551        3,040,692      283,255,073
+  2012         13,210,320       98,359,417        4,398,272      317,534,040
+  2013          9,475,943       74,831,899        3,352,048      331,332,642
+  2014         28,006,254      140,434,618       11,790,945      511,483,914
+  2015         27,990,889      164,235,111       11,038,751      524,431,953
+  2016         28,618,789      179,294,589       12,033,412      544,977,175
+  2017         56,912,287      333,909,804       26,926,761      839,633,674
+  2018         54,949,942      385,115,808       24,032,068    1,014,079,760
+  2019         38,259,685      291,649,435       16,864,291      982,859,510
+  2020         73,223,680      385,369,209       31,126,970    1,432,494,149
+  2021        176,589,736      779,878,761       88,464,242    1,950,638,419
+  2022        160,274,749      716,473,034       79,833,869    1,570,293,070
+  2023        227,615,291      861,960,602      107,247,946    1,713,567,563
+  2024        533,559,179    1,757,269,840      260,003,103    3,365,601,297
+  2025        435,622,083    1,375,009,988      223,871,308    2,520,685,388
+  2026        490,626,428    1,741,313,145      245,985,232    3,195,434,118
+
+  Momentum decile x liquidity tercile (% within decile; uniform = 33.3 each):
+  decile     T1(illiq)%        T2%     T3(liq)%
+  1               44.0%      31.6%        24.3%
+  2               41.6%      32.6%        25.7%
+  3               40.1%      31.0%        29.0%
+  4               38.2%      31.3%        30.5%
+  5               36.4%      31.3%        32.3%
+  6               33.0%      32.4%        34.6%
+  7               31.2%      32.7%        36.1%
+  8               27.6%      34.9%        37.5%
+  9               24.5%      35.8%        39.7%
+  10              16.3%      39.6%        44.1%
+
+[8] FAILED CHECKS (repeated at bottom so they cannot be missed)
+  [FAIL] no rebalance date falls on a weekend  --  weekend dates=['2015-02-28']
+
+[9] DECISIONS THIS OUTPUT SHOULD DRIVE
+
+  Q1. EXIT TREATMENT for mid-month terminations.
+      Evidence: 37 true terminations (0.0434% of eligible ticker-months).
+      Decile concentration: D1=6, D10=3, D2-D9=28.
+      2018 H2 count: 2
+      If few and evenly spread -> the three bracketing assumptions
+      (observed-days / -100% / flat-0%) converge; choice is moot.
+      If clustered in D10 or D1 -> exit treatment drives the spread and
+      must be resolved with corporate-action data before Phase B runs.
+
+  Q2. IS THE 232 FILTER DOING MORE WORK THAN INTENDED?
+      Evidence: strict 62.65% vs relaxed 66.32% (+3.66pp).
+      Mean names dropped per month (among those with a full window): 60.4
+      If strict and relaxed are close -> your hard-232 decision was free.
+      If they diverge materially -> the filter is excluding names for
+      data-artifact reasons (fact #14 phantom masking), not tradeability.
+
+  Q3. ANY FAILED CHECK ABOVE -> resolve before Phase B is written.
+
+  Q4. DID THE v3 FIX RESTORE THE COLLAPSED YEARS?
+      Pre-fix eligible universe: 2025 = 125.7, 2026 = 22.3 (vs ~480 normal).
+      Target after fix: ~450-490 in both.
+      2014: eligible avg = 432.8  (retained 94.4%)
+      2015: eligible avg = 438.6  (retained 95.0%)
+      2024: eligible avg = 409.4  (retained 81.8%)
+      2025: eligible avg = 484.0  (retained 96.8%)
+      2026: eligible avg = 481.6  (retained 96.3%)
+      If any remain depressed, the six deleted dates were NOT the whole story.
+
+==============================================================================
+END PHASE A SUMMARY
+==============================================================================
